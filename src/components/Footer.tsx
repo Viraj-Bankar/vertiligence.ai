@@ -79,10 +79,19 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
               <li>
                 <button
                   type="button"
-                  onClick={() => onSelectService('operations-hub')}
+                  onClick={() => onSelectService('custom-software')}
                   className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  Vertiligence Operations Hub
+                  Custom Business Software
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onSelectService('web-development')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Web & Digital Experiences
                 </button>
               </li>
               <li>
@@ -91,7 +100,25 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                   onClick={() => onSelectService('automation')}
                   className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  AI Workflow Automation
+                  Intelligent Workflow Automation
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onSelectService('ai-assistants')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  AI Assistants & Support
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onSelectService('system-integration')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  API & System Integration
                 </button>
               </li>
               <li>
@@ -100,34 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                   onClick={() => onSelectService('analytics')}
                   className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  Operational BI Dashboards
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onSelectService('chatbots')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
-                >
-                  Domain-Grounded AI Assistants
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onSelectService('implementation')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
-                >
-                  Systems Integration & Rollout
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onSelectService('managed-support')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
-                >
-                  Managed Operations & SLA
+                  Business Intelligence & Analytics
                 </button>
               </li>
             </ul>
@@ -136,19 +136,55 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
           {/* Col 3: Navigation */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
-              Company
+              Architecture & Journey
             </h4>
             <ul className="space-y-2">
               <li>
                 <a
-                  href="#process"
+                  href="#challenges"
                   onClick={(e) => {
                     e.preventDefault()
-                    handleLinkClick('#process')
+                    handleLinkClick('#challenges')
                   }}
                   className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  How We Deliver
+                  Business Challenges
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleLinkClick('#services')
+                  }}
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Core Capabilities
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#ecosystem"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleLinkClick('#ecosystem')
+                  }}
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Connected Ecosystem
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#audit"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleLinkClick('#audit')
+                  }}
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Process Audit & Advisory
                 </a>
               </li>
               <li>
@@ -160,31 +196,31 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                   }}
                   className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  Architecture & Prototypes
+                  Prototypes & Pipelines
                 </a>
               </li>
               <li>
                 <a
-                  href="#why-us"
+                  href="#industries"
                   onClick={(e) => {
                     e.preventDefault()
-                    handleLinkClick('#why-us')
+                    handleLinkClick('#industries')
                   }}
                   className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  Why Vertiligence AI
+                  Industries We Serve
                 </a>
               </li>
               <li>
                 <a
-                  href="#about"
+                  href="#process"
                   onClick={(e) => {
                     e.preventDefault()
-                    handleLinkClick('#about')
+                    handleLinkClick('#process')
                   }}
                   className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  About Our Company
+                  How We Deliver
                 </a>
               </li>
               <li>

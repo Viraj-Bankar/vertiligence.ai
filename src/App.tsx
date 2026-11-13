@@ -2,9 +2,13 @@ import { useState } from 'react'
 import type { ServiceId } from './types'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
+import { Challenges } from './components/Challenges'
 import { Services } from './components/Services'
-import { Process } from './components/Process'
+import { EcosystemArchitecture } from './components/EcosystemArchitecture'
+import { ProcessAudit } from './components/ProcessAudit'
 import { Portfolio } from './components/Portfolio'
+import { Industries } from './components/Industries'
+import { Process } from './components/Process'
 import { WhyUs } from './components/WhyUs'
 import { About } from './components/About'
 import { FAQ } from './components/FAQ'
@@ -13,7 +17,7 @@ import { Footer } from './components/Footer'
 import { PrivacyModal } from './components/PrivacyModal'
 
 export function App() {
-  const [selectedService, setSelectedService] = useState<ServiceId>('operations-hub')
+  const [selectedService, setSelectedService] = useState<ServiceId>('custom-software')
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
 
   const scrollToContact = (serviceId?: ServiceId) => {
@@ -40,38 +44,48 @@ export function App() {
 
       {/* Main Content Landmark */}
       <main id="main-content" className="flex-grow">
-        {/* Section A & B: Hero */}
+        {/* 1. Hero Section */}
         <Hero
           onExploreServices={scrollToServices}
           onDiscussProject={() => scrollToContact()}
         />
 
-        {/* Section C: Services */}
+        {/* 2. Business Challenges Section */}
+        <Challenges onSelectService={scrollToContact} />
+
+        {/* 3. Core Services Section */}
         <Services onSelectService={scrollToContact} />
 
-        {/* Section D: How We Work */}
-        <Process />
+        {/* 4. Integrated Business Ecosystem Architecture */}
+        <EcosystemArchitecture />
 
-        {/* Section E: Portfolio */}
+        {/* 5. Business Process Audit & Consulting */}
+        <ProcessAudit onDiscussClick={() => scrollToContact('consulting')} />
+
+        {/* 6. Featured Portfolio & Architecture Pipelines */}
         <Portfolio />
 
-        {/* Section F: Why Vertiligence AI */}
-        <WhyUs />
+        {/* 7. Industries We Serve */}
+        <Industries onSelectService={scrollToContact} />
 
-        {/* Section G: About Section */}
+        {/* 8. Our Working Process / Delivery Lifecycle */}
+        <Process />
+
+        {/* 9. Why Vertiligence AI & About */}
+        <WhyUs />
         <About />
 
-        {/* Section H: FAQ Section */}
+        {/* 10. Client FAQ Accordion */}
         <FAQ onDiscussClick={() => scrollToContact()} />
 
-        {/* Section I: Contact Section */}
+        {/* 11. Contact Section (Option A & Option B) */}
         <Contact
           selectedService={selectedService}
           onServiceChange={setSelectedService}
         />
       </main>
 
-      {/* Section I: Footer */}
+      {/* Section 12: Footer */}
       <Footer
         onSelectService={scrollToContact}
         onOpenPrivacy={() => setPrivacyModalOpen(true)}

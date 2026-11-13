@@ -42,11 +42,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
   }, [mobileMenuOpen])
 
   const navLinks = [
-    { label: 'Capabilities', href: '#services' },
-    { label: 'Methodology', href: '#process' },
+    { label: 'Solutions', href: '#services' },
+    { label: 'Ecosystem', href: '#ecosystem' },
+    { label: 'Challenges', href: '#challenges' },
+    { label: 'Audit', href: '#audit' },
     { label: 'Prototypes', href: '#portfolio' },
-    { label: 'Why Us', href: '#why-us' },
-    { label: 'About', href: '#about' },
+    { label: 'Industries', href: '#industries' },
     { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ]

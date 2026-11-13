@@ -155,24 +155,31 @@ export const Contact: React.FC<ContactProps> = ({
 
   const getServiceLabel = (id: ServiceId) => {
     switch (id) {
+      case 'custom-software':
       case 'operations-hub':
-        return 'Vertiligence Operations Hub (Lead-to-Delivery Platform)'
+        return 'Custom Business Software Development'
+      case 'web-development':
+        return 'Website & Digital Experience Development'
       case 'automation':
-        return 'AI Workflow Automation (n8n & APIs)'
-      case 'analytics':
-      case 'dashboard':
-        return 'Operational BI & Executive Dashboards'
+        return 'Intelligent Workflow Automation (n8n & Webhooks)'
+      case 'ai-assistants':
       case 'chatbots':
       case 'chatbot':
-        return 'Domain-Grounded AI Assistants & Chatbots'
+        return 'AI Assistants & Intelligent Support'
+      case 'system-integration':
       case 'implementation':
-        return 'Systems Integration & Scoped Implementation'
+        return 'API & System Integration'
+      case 'analytics':
+      case 'dashboard':
+        return 'Business Intelligence & Analytics'
+      case 'consulting':
+        return 'Business Process Audit & Technology Consulting'
       case 'managed-support':
         return 'Managed Operations & SLA Support'
       case 'integrated':
         return 'Integrated Multi-Part Solution'
       default:
-        return 'Business Systems Consultation'
+        return 'Business Technology Consultation'
     }
   }
 
@@ -276,12 +283,13 @@ ${formData.name}`
   }
 
   const serviceOptions: Array<{ id: ServiceId; label: string; sub: string }> = [
-    { id: 'operations-hub', label: 'Operations Hub', sub: 'Lead-to-Delivery Platform' },
-    { id: 'automation', label: 'Workflow Automation', sub: 'n8n & Resilient APIs' },
-    { id: 'analytics', label: 'BI & Analytics', sub: 'Executive Dashboards' },
-    { id: 'chatbots', label: 'AI Assistants', sub: 'Grounded Conversational AI' },
-    { id: 'implementation', label: 'Systems Integration', sub: 'Diagnostic Scoping & Rollout' },
-    { id: 'managed-support', label: 'Managed Support', sub: 'Proactive SLA Maintenance' },
+    { id: 'custom-software', label: 'Custom Software', sub: 'Business apps & internal portals' },
+    { id: 'web-development', label: 'Web Development', sub: 'Corporate platforms & client UX' },
+    { id: 'automation', label: 'Workflow Automation', sub: 'n8n pipelines & webhook sync' },
+    { id: 'ai-assistants', label: 'AI Assistants', sub: 'Domain-grounded 24/7 support' },
+    { id: 'system-integration', label: 'System Integration', sub: 'API connectors & database sync' },
+    { id: 'analytics', label: 'BI & Analytics', sub: 'Real-time KPI dashboards' },
+    { id: 'consulting', label: 'Process Audit', sub: 'Operational discovery & roadmap' },
   ]
 
   const handleServiceKeyDown = (

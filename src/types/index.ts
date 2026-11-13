@@ -1,12 +1,18 @@
 export type ServiceId =
-  | 'operations-hub'
+  | 'custom-software'
+  | 'web-development'
   | 'automation'
+  | 'ai-assistants'
+  | 'system-integration'
   | 'analytics'
+  | 'consulting'
+  // Backwards compatibility aliases
+  | 'operations-hub'
   | 'chatbots'
+  | 'chatbot'
   | 'implementation'
   | 'managed-support'
   | 'dashboard'
-  | 'chatbot'
   | 'integrated'
 
 export interface ServiceItem {
@@ -15,9 +21,37 @@ export interface ServiceItem {
   shortTitle: string
   tag: string
   description: string
+  capabilities: string[]
+  benefit: string
+  examples?: string[]
+  ctaText?: string
+  badgeColor?: string
+}
+
+export interface BusinessChallenge {
+  id: string
+  number: string
+  title: string
+  challenge: string
+  solution: string
+  serviceTarget: ServiceId
+  ctaLabel: string
+}
+
+export interface EcosystemLayer {
+  layerNumber: number
+  title: string
+  subtitle: string
+  description: string
+  components: string[]
+}
+
+export interface IndustrySolution {
+  id: string
+  title: string
+  summary: string
   examples: string[]
-  ctaText: string
-  badgeColor: string
+  targetService: ServiceId
 }
 
 export interface ProcessStep {

@@ -1,106 +1,126 @@
-import type { ServiceItem, ProcessStep, PortfolioItem, FAQItem } from '../types'
+import type {
+  ServiceItem,
+  ProcessStep,
+  PortfolioItem,
+  FAQItem,
+  BusinessChallenge,
+  EcosystemLayer,
+  IndustrySolution,
+} from '../types'
 
 export const SERVICES: ServiceItem[] = [
   {
-    id: 'operations-hub',
-    title: 'Vertiligence Operations Hub',
-    shortTitle: 'Operations Hub',
-    tag: 'Flagship Modular Software',
+    id: 'custom-software',
+    title: 'Custom Business Software Development',
+    shortTitle: 'Custom Software',
+    tag: 'Core Systems & Portals',
     description:
-      'A unified business operations platform managing the complete customer lifecycle from lead capture through client onboarding, delivery tasks, and executive visibility.',
-    examples: [
-      'Multi-tenant workspace with role-based access control (RBAC)',
-      'Lead & contact pipeline with automated stage progression',
-      'Client onboarding checklists & document exchange links',
-      'Delivery task tracking with milestone accountability',
-      'Real-time operational dashboard & audit logging',
+      'We design and engineer tailored software applications aligned strictly with your company’s unique operational requirements and workflows, avoiding rigid off-the-shelf constraints.',
+    capabilities: [
+      'Custom business applications & operations portals',
+      'CRM & ERP-style business management solutions',
+      'Employee, task, and project coordination systems',
+      'Inventory, catalog, and order management pipelines',
+      'Multi-stage approval & document management systems',
+      'Secure administrative & role-based client portals',
     ],
-    ctaText: 'Explore Operations Hub',
+    benefit: 'Software designed around actual business workflows rather than forcing your team into generic SaaS limits.',
+    ctaText: 'Discuss Custom Software',
     badgeColor: 'border-cyan-500/30 text-cyan-400 bg-cyan-950/40',
   },
   {
-    id: 'automation',
-    title: 'AI Workflow Automation',
-    shortTitle: 'Workflow Automation',
-    tag: 'n8n & Resilient Pipelines',
+    id: 'web-development',
+    title: 'Website & Digital Experience Development',
+    shortTitle: 'Web & Digital Experiences',
+    tag: 'Digital Presence & Portals',
     description:
-      'Connect your disconnected business tools and eliminate repetitive manual handoffs using n8n, secure webhooks, and idempotent API workflows.',
-    examples: [
-      'Cross-system CRM, spreadsheet, and database synchronization',
-      'Automated email notifications, follow-up queues & WhatsApp alerts',
-      'Form-to-system data validation, sanitization & deduplication',
-      'Idempotent error recovery, retry queues & dead-letter alerting',
-      'Scheduled health checks & automated operational telemetry',
+      'Engineered digital experiences, high-performance corporate websites, and accessible client portals that present your company with authority and streamline customer interaction.',
+    capabilities: [
+      'High-performance corporate websites & digital showcases',
+      'Conversion-engineered landing pages & campaign hubs',
+      'Self-service customer & stakeholder portals',
+      'Interactive booking, reservation & enquiry platforms',
+      'Custom modern web applications (React 19 / TypeScript)',
+      'Website modernization, architectural redesign & optimization',
     ],
-    ctaText: 'Discuss Automation',
+    benefit: 'Professional digital experiences that elevate brand credibility, increase conversion velocity, and improve customer accessibility.',
+    ctaText: 'Discuss Web Development',
     badgeColor: 'border-blue-500/30 text-blue-400 bg-blue-950/40',
   },
   {
-    id: 'analytics',
-    title: 'Operational BI & Dashboards',
-    shortTitle: 'BI & Analytics',
-    tag: 'Executive Visibility & KPIs',
+    id: 'automation',
+    title: 'Intelligent Workflow Automation',
+    shortTitle: 'Workflow Automation',
+    tag: 'n8n & Resilient Pipelines',
     description:
-      'Convert fragmented spreadsheets and operational databases into clear, real-time KPI dashboards for decisive business leadership.',
-    examples: [
-      'Lead-to-cash pipeline conversion & revenue velocity reports',
-      'Team resource utilization & project delivery performance',
-      'Inventory health, turnover alerts & order fulfillment metrics',
-      'PostgreSQL, Power BI & custom React web analytics views',
-      'Automated weekly executive summaries & PDF/CSV data exports',
+      'Eliminate repetitive manual tasks and connect disparate systems using n8n orchestration, reliable webhooks, and fault-tolerant automation pipelines.',
+    capabilities: [
+      'n8n orchestration & multi-step workflow pipelines',
+      'Repetitive administrative & data entry elimination',
+      'Automated email, Slack, and messaging dispatch queues',
+      'Inbound document processing & extraction workflows',
+      'Multi-department approval & escalation logic',
+      'Automated scheduled reporting & webhook triggers',
     ],
-    ctaText: 'Discuss Dashboards',
-    badgeColor: 'border-sky-500/30 text-sky-400 bg-sky-950/40',
-  },
-  {
-    id: 'chatbots',
-    title: 'Domain-Grounded AI Assistants',
-    shortTitle: 'Grounded Assistants',
-    tag: 'Grounded Conversational AI',
-    description:
-      'Deploy intelligent customer and team assistants strictly anchored in verified business documentation with deterministic human escalation protocols.',
-    examples: [
-      'Website customer enquiry intake & lead qualification',
-      'Knowledge-base grounded question answering via RAG',
-      'Strict anti-hallucination guardrails & verified citations',
-      'Automated triage & seamless human escalation tickets',
-      'Comprehensive interaction audit logs & privacy governance',
-    ],
-    ctaText: 'Discuss AI Assistants',
+    benefit: 'Reduces manual hours, eliminates copy-paste errors, and establishes predictable operational consistency across all departments.',
+    ctaText: 'Discuss Workflow Automation',
     badgeColor: 'border-indigo-500/30 text-indigo-400 bg-indigo-950/40',
   },
   {
-    id: 'implementation',
-    title: 'Systems Integration & Scoped Rollout',
-    shortTitle: 'Systems Integration',
-    tag: 'Hands-On Engineering',
+    id: 'ai-assistants',
+    title: 'AI Assistants & Intelligent Support',
+    shortTitle: 'AI Assistants',
+    tag: 'Domain-Grounded AI',
     description:
-      'End-to-end diagnostic audits, target workflow architecture, custom REST/GraphQL connectors, and legacy data migration delivered by senior engineers.',
-    examples: [
-      'Operational bottleneck diagnosis & tool stack audit',
-      'Legacy spreadsheet & database cleanup and schema migration',
-      'Custom API connectors bridging legacy and modern SaaS tools',
-      'Role-based staff training, documentation & video runbooks',
-      'Fixed-cost scoping with transparent milestone acceptance gates',
+      'Deploy conversational AI assistants anchored strictly in verified company knowledge bases, providing 24/7 intelligent support with deterministic human escalation.',
+    capabilities: [
+      'Website customer support & lead triage assistants',
+      'Context-aware customer service & FAQs resolution',
+      'Internal team knowledge assistants & operational runbooks',
+      'Document question-answering with verified citations',
+      'Multilingual customer enquiry handling & translation',
+      'Deterministic qualification & seamless human escalation tickets',
     ],
-    ctaText: 'Discuss Implementation',
+    benefit: 'Makes business information and assistance instantaneously accessible around the clock while safeguarding data confidentiality.',
+    ctaText: 'Discuss AI Assistants',
+    badgeColor: 'border-sky-500/30 text-sky-400 bg-sky-950/40',
+  },
+  {
+    id: 'system-integration',
+    title: 'API & System Integration',
+    shortTitle: 'System Integration',
+    tag: 'Connected Ecosystems',
+    description:
+      'Unite isolated applications, databases, and third-party SaaS services into a unified, synchronized business ecosystem with zero data silos.',
+    capabilities: [
+      'Third-party REST, GraphQL & SOAP API integration',
+      'CRM, ERP, and accounting platform synchronization',
+      'Relational and cloud database integration (PostgreSQL, SQL)',
+      'Payment gateway, invoice, and billing connectivity',
+      'Bi-directional automated data synchronization',
+      'Legacy application wrappers & webhook event streaming',
+    ],
+    benefit: 'Connects disconnected software tools into coordinated, real-time workflows so data flows frictionlessly between systems.',
+    ctaText: 'Discuss Integration',
     badgeColor: 'border-emerald-500/30 text-emerald-400 bg-emerald-950/40',
   },
   {
-    id: 'managed-support',
-    title: 'Managed Operations & SLA Support',
-    shortTitle: 'Managed Support',
-    tag: 'Proactive Maintenance',
+    id: 'analytics',
+    title: 'Business Intelligence & Analytics',
+    shortTitle: 'BI & Analytics',
+    tag: 'Operational BI & Metrics',
     description:
-      'Continuous pipeline monitoring, SLA-backed incident response, API deprecation maintenance, and ongoing workflow optimization.',
-    examples: [
-      '24/7 workflow execution health monitoring & alerting',
-      'Third-party API update, token renewal & deprecation handling',
-      'Database performance tuning, integrity checks & secure backups',
-      'Quarterly workflow efficiency & cost reviews',
-      'Contractual response time guarantees & dedicated engineer contact',
+      'Transform operational databases, transaction logs, and spreadsheets into interactive BI dashboards and actionable intelligence for business leadership.',
+    capabilities: [
+      'Executive business intelligence dashboards & KPI tracking',
+      'Power BI and custom interactive web analytics views',
+      'Sales conversion velocity & revenue health monitoring',
+      'Operational performance, bottleneck & SLA tracking',
+      'Automated ETL data cleaning & transformation pipelines',
+      'Scheduled leadership summaries & exportable PDF/CSV reports',
     ],
-    ctaText: 'Discuss Managed Support',
+    benefit: 'Converts fragmented business data into dependable, real-time operational insights for rapid, confident decision-making.',
+    ctaText: 'Discuss Analytics',
     badgeColor: 'border-purple-500/30 text-purple-400 bg-purple-950/40',
   },
 ]
@@ -563,14 +583,253 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
 ]
 
+export const BUSINESS_CHALLENGES: BusinessChallenge[] = [
+  {
+    id: 'manual-operations',
+    number: '01',
+    title: 'Manual & Repetitive Operations',
+    challenge:
+      'Staff lose productive hours retyping information between systems, compiling weekly reports, and performing manual operational handoffs.',
+    solution:
+      'Resilient n8n automated pipelines and webhook triggers that handle data entry, document routing, and notifications instantly without error.',
+    serviceTarget: 'automation',
+    ctaLabel: 'Explore Workflow Automation',
+  },
+  {
+    id: 'disconnected-apps',
+    number: '02',
+    title: 'Disconnected Business Applications',
+    challenge:
+      'Crucial operational data is locked across separate spreadsheets, CRMs, billing tools, and email inboxes, creating friction and duplicates.',
+    solution:
+      'Engineered API integrations and bidirectional synchronization that unify disconnected tools into a coordinated, real-time single source of truth.',
+    serviceTarget: 'system-integration',
+    ctaLabel: 'Explore System Integration',
+  },
+  {
+    id: 'inefficient-communication',
+    number: '03',
+    title: 'Inefficient Customer Communication',
+    challenge:
+      'Prospective clients and customers wait hours for responses, inquiry details get lost, and support teams are overwhelmed by basic FAQs.',
+    solution:
+      'Domain-grounded AI assistants that qualify leads, resolve customer inquiries from verified documentation 24/7, and escalate complex cases.',
+    serviceTarget: 'ai-assistants',
+    ctaLabel: 'Explore AI Assistants',
+  },
+  {
+    id: 'limited-visibility',
+    number: '04',
+    title: 'Limited Visibility into Performance',
+    challenge:
+      'Business leadership lacks real-time clarity on revenue velocity, delivery bottlenecks, and conversion health, relying on stale reports.',
+    solution:
+      'Live operational BI dashboards and automated metrics pipelines providing immediate, dependable decision intelligence for leadership.',
+    serviceTarget: 'analytics',
+    ctaLabel: 'Explore BI & Analytics',
+  },
+  {
+    id: 'outdated-infrastructure',
+    number: '05',
+    title: 'Outdated Digital Infrastructure',
+    challenge:
+      'Legacy websites and brittle tooling fail to engage modern clients, load slowly, and cannot support new operational workflows.',
+    solution:
+      'Modern web platforms, high-performance customer portals, and resilient cloud architectures built on modern React and TypeScript.',
+    serviceTarget: 'web-development',
+    ctaLabel: 'Explore Web Development',
+  },
+  {
+    id: 'scaling-software',
+    number: '06',
+    title: 'Scaling Operations Requiring Software',
+    challenge:
+      'Growing order volume, expanding teams, and complex workflows outgrow off-the-shelf SaaS apps and spreadsheet trackers.',
+    solution:
+      'Tailored custom business applications designed specifically around your operational processes, data rules, and staff roles.',
+    serviceTarget: 'custom-software',
+    ctaLabel: 'Explore Custom Software',
+  },
+]
+
+export const ECOSYSTEM_LAYERS: EcosystemLayer[] = [
+  {
+    layerNumber: 1,
+    title: 'Layer 1 — Digital Experiences',
+    subtitle: 'Websites, portals and business interfaces',
+    description:
+      'The outward and operational touchpoint layer where clients, partners, and internal staff interact with your company.',
+    components: [
+      'High-Performance Corporate Websites',
+      'Self-Service Customer & Stakeholder Portals',
+      'Interactive Booking & Enquiry Platforms',
+      'Responsive Administrative Web Applications',
+    ],
+  },
+  {
+    layerNumber: 2,
+    title: 'Layer 2 — Business Applications',
+    subtitle: 'Custom software, CRM-style systems and operational platforms',
+    description:
+      'The core operational engine managing company records, workflows, internal tasks, and business data.',
+    components: [
+      'Custom Business Applications',
+      'Tailored CRM & ERP-Style Systems',
+      'Task & Milestone Tracking Workspaces',
+      'Inventory, Catalog & Order Processing',
+    ],
+  },
+  {
+    layerNumber: 3,
+    title: 'Layer 3 — Integration & Automation',
+    subtitle: 'APIs, webhooks and workflow automation',
+    description:
+      'The connective tissue eliminating manual handoffs and ensuring synchronized data exchange across all tools.',
+    components: [
+      'n8n Orchestration Pipelines',
+      'Secure REST & GraphQL API Connectors',
+      'Event-Driven Webhook Triggers',
+      'Bidirectional Database Synchronization',
+    ],
+  },
+  {
+    layerNumber: 4,
+    title: 'Layer 4 — Intelligence',
+    subtitle: 'AI assistants, document intelligence and analytics',
+    description:
+      'Grounded intelligence extracting value from documentation, accelerating support, and clarifying business health.',
+    components: [
+      'Domain-Grounded Conversational AI',
+      'Document Question-Answering with Citations',
+      'Executive Power BI Dashboards',
+      'Real-Time Operational Telemetry & KPI Alerts',
+    ],
+  },
+  {
+    layerNumber: 5,
+    title: 'Layer 5 — Continuous Improvement',
+    subtitle: 'Monitoring, optimization and technical support',
+    description:
+      'Continuous engineering oversight ensuring all systems stay secure, updated, and aligned with operational growth.',
+    components: [
+      'Proactive 24/7 Execution Health Monitoring',
+      'Third-Party API & Token Maintenance',
+      'Performance Optimization & Query Tuning',
+      'SLA-Backed Technical Support Packages',
+    ],
+  },
+]
+
+export const PROCESS_AUDIT_POINTS = [
+  {
+    step: '01',
+    title: 'Business Process Assessment',
+    description:
+      'We examine how your daily work flows, identifying manual data entry, disconnected spreadsheets, and repetitive administrative bottlenecks.',
+  },
+  {
+    step: '02',
+    title: 'Technology Gap Identification',
+    description:
+      'We audit your current software stack to pinpoint redundant tool subscriptions, siloed databases, and fragile integration points.',
+  },
+  {
+    step: '03',
+    title: 'Workflow & Friction Analysis',
+    description:
+      'We map how client inquiries, delivery tasks, and internal approvals travel across teams to isolate delays and preventable friction.',
+  },
+  {
+    step: '04',
+    title: 'Digital Transformation Roadmap',
+    description:
+      'We formulate a pragmatic, phased roadmap prioritizing quick automation wins followed by foundational custom software and BI reporting.',
+  },
+  {
+    step: '05',
+    title: 'Implementation Recommendations',
+    description:
+      'You receive clear architectural specifications, scope estimates, and technical guidance with zero pressure or lock-in.',
+  },
+]
+
+export const INDUSTRIES_SERVED: IndustrySolution[] = [
+  {
+    id: 'manufacturing',
+    title: 'Manufacturing',
+    summary:
+      'Connecting factory floors, supplier coordination, and quality assurance logs into cohesive digital pipelines.',
+    examples: [
+      'Automated supplier delivery status webhook sync with internal purchase orders',
+      'Shop-floor equipment maintenance logging and defect tracking web portal',
+    ],
+    targetService: 'custom-software',
+  },
+  {
+    id: 'retail-ecommerce',
+    title: 'Retail & E-commerce',
+    summary:
+      'Harmonizing multi-channel sales, inventory counts, and instant customer service without manual re-entry.',
+    examples: [
+      'Bi-directional stock synchronization between online storefronts and warehouse records',
+      'Grounded AI customer assistant answering shipping, policy, and order tracking FAQs',
+    ],
+    targetService: 'automation',
+  },
+  {
+    id: 'education-training',
+    title: 'Education & Training',
+    summary:
+      'Streamlining learner onboarding, document collection, and automated scheduling communications.',
+    examples: [
+      'Self-service student enrollment portal with automated verification checklist',
+      'Automated batch notification workflows for schedules, assignments, and reminders',
+    ],
+    targetService: 'web-development',
+  },
+  {
+    id: 'logistics-distribution',
+    title: 'Logistics & Distribution',
+    summary:
+      'Synchronizing dispatch teams, warehouse handoffs, and transit milestone alerts across operations.',
+    examples: [
+      'Automated dispatch exception alerts triggered from telematics and carrier webhooks',
+      'Executive KPI dashboard tracking delivery SLA compliance and fleet turnaround times',
+    ],
+    targetService: 'analytics',
+  },
+  {
+    id: 'professional-services',
+    title: 'Professional Services',
+    summary:
+      'Empowering consultancies, agencies, and firms with professional client onboarding and reporting.',
+    examples: [
+      'Dedicated client onboarding portal with stage progression and secure asset collection',
+      'Automated project milestone notifications and integrated billing schedule handoffs',
+    ],
+    targetService: 'custom-software',
+  },
+  {
+    id: 'startups-growing-businesses',
+    title: 'Startups & Growing Businesses',
+    summary:
+      'Building scalable digital foundations that handle expanding operations without inflating headcount.',
+    examples: [
+      'Full-stack MVP web application development engineered for rapid scale and security',
+      'Automated inbound lead triage and enrichment routing high-intent deals to founders',
+    ],
+    targetService: 'system-integration',
+  },
+]
+
 export const STUDIO_DETAILS = {
   brandName: 'Vertiligence AI',
   tagline: 'Intelligence. Automation. Impact.',
   positioning: 'Engineering Intelligent Business Ecosystems.',
   missionStatement:
-    'We help growing organizations connect customer operations, internal workflows, and business intelligence through modular software and expert systems integration.',
+    'We engineer connected digital solutions through custom software, intelligent automation, AI and business intelligence — helping businesses simplify operations, connect systems and make smarter decisions.',
   targetMarket:
-    'Digital agencies, IT services firms, consultancies, and growing modern businesses.',
+    'Growing organizations, digital agencies, modern businesses, and forward-looking enterprises.',
   email: 'work.vertiligenceai@gmail.com',
   location: 'India (Serving forward-thinking teams globally)',
   companyType: 'Technology Engineering & Digital Transformation',

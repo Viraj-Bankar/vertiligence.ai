@@ -28,43 +28,47 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md shadow-lg shadow-cyan-500/10">
             <img src="/logo-emblem.png" alt="" className="w-4 h-4 rounded-full object-cover shrink-0 ring-1 ring-cyan-400" aria-hidden="true" />
-            <span>BUSINESS SYSTEMS · WORKFLOW AUTOMATION · AI OPERATIONS</span>
+            <span>TECHNOLOGY ENGINEERING · DIGITAL TRANSFORMATION</span>
           </div>
 
-          {/* Main Headline */}
+          {/* Main Headline & Supporting Headline */}
           <h1
             id="hero-heading"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] mb-4"
           >
-            Less busywork.{' '}
+            Engineering Intelligent{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">
-              More intelligent business.
+              Business Ecosystems.
             </span>
           </h1>
 
-          {/* Supporting Text */}
-          <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed mb-9">
-            Engineering intelligent business ecosystems that connect customer operations, internal workflows, and business intelligence through our Operations Hub and expert systems integration.
+          <p className="text-xl sm:text-2xl font-semibold text-slate-200 mb-4 tracking-tight">
+            Transform the way your business works.
+          </p>
+
+          {/* Supporting Description */}
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-9">
+            We engineer connected digital solutions through custom software, intelligent automation, AI and business intelligence — helping businesses simplify operations, connect systems and make smarter decisions.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <button
               type="button"
-              onClick={onExploreServices}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_30px_rgba(0,210,255,0.3)] hover:shadow-[0_0_35px_rgba(0,210,255,0.5)] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              onClick={onDiscussProject}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_30px_rgba(0,210,255,0.3)] hover:shadow-[0_0_35px_rgba(0,210,255,0.5)] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
-              <span>Explore Capabilities</span>
+              <span>Discuss Your Project</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
             <button
               type="button"
-              onClick={onDiscussProject}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-base font-semibold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/30 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+              onClick={onExploreServices}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-base font-semibold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/30 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
               <MessageSquare className="w-4 h-4 text-cyan-400" />
-              <span>Discuss Your Operations</span>
+              <span>Explore Our Solutions</span>
             </button>
           </div>
 
@@ -72,19 +76,19 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-10 mt-10 border-t border-white/10 w-full text-left">
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <LayoutDashboard className="w-4 h-4 text-cyan-400 shrink-0" />
-              <span>Vertiligence Operations Hub</span>
+              <span>Custom Software & Portals</span>
             </div>
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <Cpu className="w-4 h-4 text-blue-400 shrink-0" />
-              <span>Tailored n8n Pipelines</span>
+              <span>Intelligent Automation (n8n)</span>
             </div>
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <Code2 className="w-4 h-4 text-sky-400 shrink-0" />
-              <span>Direct Engineering Scoping</span>
+              <span>Grounded AI Assistants</span>
             </div>
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Transparent IP Transfer</span>
+              <span>Operational BI & Analytics</span>
             </div>
           </div>
         </div>
