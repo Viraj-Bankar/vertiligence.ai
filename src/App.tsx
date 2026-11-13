@@ -12,7 +12,7 @@ import { Footer } from './components/Footer'
 import { PrivacyModal } from './components/PrivacyModal'
 
 export function App() {
-  const [selectedService, setSelectedService] = useState<ServiceId>('automation')
+  const [selectedService, setSelectedService] = useState<ServiceId>('operations-hub')
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
 
   const scrollToContact = (serviceId?: ServiceId) => {

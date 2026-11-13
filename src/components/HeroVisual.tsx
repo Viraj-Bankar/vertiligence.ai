@@ -9,8 +9,6 @@ import {
   Zap,
 } from 'lucide-react'
 
-
-
 export const HeroVisual: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'workflows' | 'insights' | 'chatbots'>('workflows')
 
@@ -37,11 +35,19 @@ export const HeroVisual: React.FC = () => {
           </div>
 
           {/* Interactive view selector tabs */}
-          <div className="flex items-center gap-1 bg-white/5 p-1 rounded-lg border border-white/10 text-xs">
+          <div
+            role="tablist"
+            aria-label="Architecture visualization modes"
+            className="flex items-center gap-1 bg-white/5 p-1 rounded-lg border border-white/10 text-xs"
+          >
             <button
+              id="tab-workflows"
+              role="tab"
+              aria-selected={activeTab === 'workflows'}
+              aria-controls="visual-panel"
               type="button"
               onClick={() => setActiveTab('workflows')}
-              className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400 ${
                 activeTab === 'workflows'
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
                   : 'text-slate-400 hover:text-white'
@@ -50,9 +56,13 @@ export const HeroVisual: React.FC = () => {
               Workflows
             </button>
             <button
+              id="tab-insights"
+              role="tab"
+              aria-selected={activeTab === 'insights'}
+              aria-controls="visual-panel"
               type="button"
               onClick={() => setActiveTab('insights')}
-              className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400 ${
                 activeTab === 'insights'
                   ? 'bg-blue-500/20 text-blue-300 border border-blue-500/40'
                   : 'text-slate-400 hover:text-white'
@@ -61,9 +71,13 @@ export const HeroVisual: React.FC = () => {
               Insights
             </button>
             <button
+              id="tab-chatbots"
+              role="tab"
+              aria-selected={activeTab === 'chatbots'}
+              aria-controls="visual-panel"
               type="button"
               onClick={() => setActiveTab('chatbots')}
-              className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer ${
+              className={`px-2.5 py-1 rounded-md font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400 ${
                 activeTab === 'chatbots'
                   ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40'
                   : 'text-slate-400 hover:text-white'
@@ -75,7 +89,12 @@ export const HeroVisual: React.FC = () => {
         </div>
 
         {/* Interactive Dynamic Graphic Node System */}
-        <div className="relative z-10">
+        <div
+          id="visual-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${activeTab}`}
+          className="relative z-10"
+        >
           {/* SVG Pipeline Connection Overlay */}
           <div className="hidden sm:block absolute inset-0 pointer-events-none -z-0">
             <svg className="w-full h-full" viewBox="0 0 600 240" fill="none" preserveAspectRatio="none">
@@ -160,7 +179,7 @@ export const HeroVisual: React.FC = () => {
                 {/* Glowing status bead */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-cyan-500 text-[10px] font-bold text-slate-950 uppercase tracking-wider flex items-center gap-1 shadow-md">
                   <Zap className="w-2.5 h-2.5 fill-current" />
-                  <span>Studio Engine</span>
+                  <span>Operations Engine</span>
                 </div>
 
                 <div className="w-14 h-14 mx-auto rounded-xl overflow-hidden border border-cyan-400/40 shadow-[0_0_20px_rgba(0,210,255,0.35)] mb-3 mt-1 bg-black">
@@ -237,9 +256,9 @@ export const HeroVisual: React.FC = () => {
         <div className="mt-5 pt-3.5 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
           <div className="flex items-center gap-1.5">
             <span className="text-cyan-400">●</span>
-            <span>No generic wrappers</span>
+            <span>Production-grade n8n, Operations Hub & BI Dashboards</span>
             <span className="text-slate-600">|</span>
-            <span>Production-grade n8n, APIs & Dashboards</span>
+            <span>Zero speculative wrappers</span>
           </div>
           <div className="font-mono text-[10px] text-slate-400">
             Engineered for reliability

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import type { PortfolioItem } from '../types'
 import { X, CheckCircle, ExternalLink, Code2, Layers, AlertCircle } from 'lucide-react'
-
 
 interface PortfolioModalProps {
   item: PortfolioItem | null
@@ -9,17 +8,34 @@ interface PortfolioModalProps {
 }
 
 export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose }) => {
+  const closeBtnRef = useRef<HTMLButtonElement>(null)
+  const previousActiveElement = useRef<HTMLElement | null>(null)
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
     if (item) {
+      previousActiveElement.current = document.activeElement as HTMLElement
+      // Small timeout to allow DOM mount before focusing
+      const timer = setTimeout(() => {
+        closeBtnRef.current?.focus()
+      }, 50)
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose()
+        }
+      }
+
       window.addEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'hidden'
-    }
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
+
+      return () => {
+        clearTimeout(timer)
+        window.removeEventListener('keydown', handleKeyDown)
+        document.body.style.overflow = ''
+        if (previousActiveElement.current && typeof previousActiveElement.current.focus === 'function') {
+          previousActiveElement.current.focus()
+        }
+      }
     }
   }, [item, onClose])
 
@@ -39,9 +55,10 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose })
       <div className="relative w-full max-w-2xl bg-[#0B1020] border border-cyan-500/30 rounded-2xl shadow-2xl p-6 sm:p-8 z-10 max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
+          ref={closeBtnRef}
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className="absolute top-5 right-5 p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           aria-label="Close details"
         >
           <X className="w-5 h-5" />
@@ -92,7 +109,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose })
         {/* Planned Features */}
         <div className="mb-6">
           <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
-            Planned Prototype Features:
+            Key Architecture Capabilities:
           </h4>
           <ul className="space-y-2">
             {item.plannedFeatures.map((feature, idx) => (
@@ -125,7 +142,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose })
         <div className="p-4 rounded-xl bg-blue-950/30 border border-blue-500/20 flex items-start gap-3 text-xs text-slate-300 mb-6">
           <AlertCircle className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
           <p>
-            This prototype is currently undergoing development in the studio sandbox. Clean repository references and interactive sandboxes will be linked here as milestones are tagged.
+            This blueprint reflects our active engineering builds and multi-tenant test rigs. Custom integrations and staging walkthroughs are available during technical scoping conversations.
           </p>
         </div>
 
@@ -137,14 +154,14 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose })
                 href={item.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium text-white transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
                 <Code2 className="w-3.5 h-3.5" />
                 <span>Repository</span>
               </a>
             ) : (
               <span className="text-xs text-slate-400 font-mono">
-                Source: Staging build
+                Source: Internal sandbox build
               </span>
             )}
 
@@ -153,7 +170,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose })
                 href={item.liveUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-xs font-medium text-cyan-300 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-xs font-medium text-cyan-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>Sandbox Demo</span>
@@ -164,7 +181,7 @@ export const PortfolioModal: React.FC<PortfolioModalProps> = ({ item, onClose })
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
             Close Overview
           </button>

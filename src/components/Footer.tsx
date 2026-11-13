@@ -2,8 +2,7 @@ import React from 'react'
 import { BrandLogo } from './BrandLogo'
 import type { ServiceId } from '../types'
 import { STUDIO_DETAILS } from '../data/content'
-import { Mail, ArrowUp } from 'lucide-react'
-
+import { Mail, ArrowUp, Code2 } from 'lucide-react'
 
 interface FooterProps {
   onSelectService: (service: ServiceId) => void
@@ -14,7 +13,6 @@ const CURRENT_YEAR = new Date().getFullYear()
 
 export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }) => {
   const scrollToTop = () => {
-
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -30,7 +28,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <a
-              href="#"
+              href="#hero"
               onClick={(e) => {
                 e.preventDefault()
                 scrollToTop()
@@ -46,45 +44,52 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
             </p>
 
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              We help businesses simplify repetitive operations, understand their data, and improve customer engagement through practical AI automation, business dashboards, and intelligent chatbots.
+              An AI-enabled business systems and automation company helping growing organizations connect customer operations, internal workflows, and business intelligence.
             </p>
 
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <a
                 href={`mailto:${STUDIO_DETAILS.email}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-300 hover:text-cyan-200 border border-white/10 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-300 hover:text-cyan-200 border border-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
                 <Mail className="w-3.5 h-3.5" />
                 <span className="font-mono text-[11px]">{STUDIO_DETAILS.email}</span>
               </a>
 
-              {/* LinkedIn Placeholder */}
+              {/* Verified GitHub Repository */}
               <a
-                href={STUDIO_DETAILS.linkedinPlaceholder}
+                href={STUDIO_DETAILS.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
-                title="Vertiligence AI on LinkedIn (Company URL placeholder)"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                title="Vertiligence AI on GitHub"
               >
-                <svg className="w-3.5 h-3.5 text-blue-400 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.53 1.53 0 0 0 0-3.06 1.53 1.53 0 0 0 0 3.06m1.4 9.74v-8.37H5.06v8.37h2.8z" />
-                </svg>
-                <span className="text-[11px]">LinkedIn</span>
+                <Code2 className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-[11px]">GitHub Repo</span>
               </a>
             </div>
           </div>
 
-          {/* Col 2: Services */}
+          {/* Col 2: Capabilities & Solutions */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
-              Services
+              Solutions & Services
             </h4>
             <ul className="space-y-2">
               <li>
                 <button
                   type="button"
+                  onClick={() => onSelectService('operations-hub')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Vertiligence Operations Hub
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
                   onClick={() => onSelectService('automation')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer"
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
                   AI Workflow Automation
                 </button>
@@ -92,28 +97,37 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
               <li>
                 <button
                   type="button"
-                  onClick={() => onSelectService('dashboard')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer"
+                  onClick={() => onSelectService('analytics')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  BI Dashboards
+                  Operational BI Dashboards
                 </button>
               </li>
               <li>
                 <button
                   type="button"
-                  onClick={() => onSelectService('chatbot')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer"
+                  onClick={() => onSelectService('chatbots')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  AI Chatbot Development
+                  Domain-Grounded AI Assistants
                 </button>
               </li>
               <li>
                 <button
                   type="button"
-                  onClick={() => onSelectService('integrated')}
-                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer"
+                  onClick={() => onSelectService('implementation')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  Integrated Studio Scope
+                  Systems Integration & Rollout
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onSelectService('managed-support')}
+                  className="hover:text-cyan-400 transition-colors text-left cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Managed Operations & SLA
                 </button>
               </li>
             </ul>
@@ -122,7 +136,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
           {/* Col 3: Navigation */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
-              Studio
+              Company
             </h4>
             <ul className="space-y-2">
               <li>
@@ -132,9 +146,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                     e.preventDefault()
                     handleLinkClick('#process')
                   }}
-                  className="hover:text-cyan-400 transition-colors"
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  How We Work
+                  How We Deliver
                 </a>
               </li>
               <li>
@@ -144,9 +158,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                     e.preventDefault()
                     handleLinkClick('#portfolio')
                   }}
-                  className="hover:text-cyan-400 transition-colors"
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  Portfolio Prototypes
+                  Architecture & Prototypes
                 </a>
               </li>
               <li>
@@ -156,7 +170,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                     e.preventDefault()
                     handleLinkClick('#why-us')
                   }}
-                  className="hover:text-cyan-400 transition-colors"
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
                   Why Vertiligence AI
                 </a>
@@ -168,9 +182,21 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
                     e.preventDefault()
                     handleLinkClick('#about')
                   }}
-                  className="hover:text-cyan-400 transition-colors"
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
                 >
-                  About Our Studio
+                  About Our Company
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleLinkClick('#contact')
+                  }}
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Consultation & Scoping
                 </a>
               </li>
             </ul>
@@ -179,16 +205,16 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
           {/* Col 4: Location & Governance */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
-              Studio Location
+              Headquarters
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Vertiligence AI is an independent technology studio based in India.
+              Vertiligence AI is an independent business technology company based in India.
             </p>
             <div className="pt-1">
               <button
                 type="button"
                 onClick={onOpenPrivacy}
-                className="text-xs text-cyan-400 hover:text-cyan-300 underline underline-offset-2 cursor-pointer"
+                className="text-xs text-cyan-400 hover:text-cyan-300 underline underline-offset-2 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
               >
                 Privacy Notice & Data Policy
               </button>
@@ -205,11 +231,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
             © {CURRENT_YEAR} Vertiligence AI. All rights reserved. Built with precision and practical engineering.
           </p>
 
-
           <button
             type="button"
             onClick={scrollToTop}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             aria-label="Back to top of page"
           >
             <span>Back to top</span>

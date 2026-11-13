@@ -3,9 +3,12 @@ import { SERVICES } from '../data/content'
 import type { ServiceId } from '../types'
 
 import {
+  LayoutDashboard,
   Workflow,
   BarChart3,
   Bot,
+  Wrench,
+  ShieldCheck,
   ArrowRight,
   CheckCircle2,
   Sparkles,
@@ -18,12 +21,20 @@ interface ServicesProps {
 export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   const getServiceIcon = (id: ServiceId) => {
     switch (id) {
+      case 'operations-hub':
+        return <LayoutDashboard className="w-6 h-6 text-cyan-400" />
       case 'automation':
-        return <Workflow className="w-6 h-6 text-cyan-400" />
+        return <Workflow className="w-6 h-6 text-blue-400" />
+      case 'analytics':
       case 'dashboard':
-        return <BarChart3 className="w-6 h-6 text-blue-400" />
+        return <BarChart3 className="w-6 h-6 text-sky-400" />
+      case 'chatbots':
       case 'chatbot':
         return <Bot className="w-6 h-6 text-indigo-400" />
+      case 'implementation':
+        return <Wrench className="w-6 h-6 text-emerald-400" />
+      case 'managed-support':
+        return <ShieldCheck className="w-6 h-6 text-purple-400" />
       default:
         return <Sparkles className="w-6 h-6 text-cyan-400" />
     }
@@ -31,29 +42,55 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
 
   const getCardAccentStyles = (id: ServiceId) => {
     switch (id) {
+      case 'operations-hub':
+        return {
+          border: 'border-cyan-500/30 hover:border-cyan-400/60',
+          glow: 'group-hover:shadow-[0_0_40px_rgba(0,210,255,0.22)]',
+          badgeBg: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+          btnBg: 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:from-blue-500 hover:to-cyan-400 shadow-md shadow-cyan-500/20',
+          iconBg: 'bg-cyan-950/70 border-cyan-500/40',
+        }
       case 'automation':
         return {
-          border: 'border-cyan-500/20 hover:border-cyan-400/50',
-          glow: 'group-hover:shadow-[0_0_40px_rgba(0,210,255,0.18)]',
-          badgeBg: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
-          btnBg: 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500 hover:text-slate-950',
-          iconBg: 'bg-cyan-950/70 border-cyan-500/30',
-        }
-      case 'dashboard':
-        return {
-          border: 'border-blue-500/20 hover:border-blue-400/50',
+          border: 'border-blue-500/25 hover:border-blue-400/50',
           glow: 'group-hover:shadow-[0_0_40px_rgba(59,130,246,0.18)]',
           badgeBg: 'bg-blue-500/10 text-blue-300 border-blue-500/30',
           btnBg: 'bg-blue-500/15 text-blue-300 border border-blue-500/30 hover:bg-blue-600 hover:text-white',
           iconBg: 'bg-blue-950/70 border-blue-500/30',
         }
+      case 'analytics':
+      case 'dashboard':
+        return {
+          border: 'border-sky-500/25 hover:border-sky-400/50',
+          glow: 'group-hover:shadow-[0_0_40px_rgba(56,189,248,0.18)]',
+          badgeBg: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
+          btnBg: 'bg-sky-500/15 text-sky-300 border border-sky-500/30 hover:bg-sky-500 hover:text-slate-950',
+          iconBg: 'bg-sky-950/70 border-sky-500/30',
+        }
+      case 'chatbots':
       case 'chatbot':
         return {
-          border: 'border-indigo-500/20 hover:border-indigo-400/50',
+          border: 'border-indigo-500/25 hover:border-indigo-400/50',
           glow: 'group-hover:shadow-[0_0_40px_rgba(99,102,241,0.18)]',
           badgeBg: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
           btnBg: 'bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white',
           iconBg: 'bg-indigo-950/70 border-indigo-500/30',
+        }
+      case 'implementation':
+        return {
+          border: 'border-emerald-500/25 hover:border-emerald-400/50',
+          glow: 'group-hover:shadow-[0_0_40px_rgba(16,185,129,0.18)]',
+          badgeBg: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+          btnBg: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white',
+          iconBg: 'bg-emerald-950/70 border-emerald-500/30',
+        }
+      case 'managed-support':
+        return {
+          border: 'border-purple-500/25 hover:border-purple-400/50',
+          glow: 'group-hover:shadow-[0_0_40px_rgba(168,85,247,0.18)]',
+          badgeBg: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+          btnBg: 'bg-purple-500/15 text-purple-300 border border-purple-500/30 hover:bg-purple-600 hover:text-white',
+          iconBg: 'bg-purple-950/70 border-purple-500/30',
         }
       default:
         return {
@@ -67,7 +104,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   }
 
   return (
-    <section id="services" className="py-20 md:py-28 relative" aria-labelledby="services-title">
+    <section id="services" className="py-20 md:py-28 relative scroll-mt-24" aria-labelledby="services-title">
       {/* Background ambient light */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-blue-900/10 rounded-full blur-[140px] -z-10 pointer-events-none"
@@ -78,18 +115,18 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/50 border border-blue-500/30 text-blue-300 text-xs font-semibold uppercase tracking-wider mb-4">
-            <span>Specialized Capabilities</span>
+            <span>Systems & Operational Capabilities</span>
           </div>
           <h2 id="services-title" className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Practical AI & Data Services
+            AI-Enabled Business Systems & Automation
           </h2>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Focused engineering solutions designed to eliminate repetitive administrative burden, clarify numbers, and modernize user touchpoints.
+            Modular operations software and expert systems integration engineered to connect your customer lifecycle, eliminate manual bottlenecks, and provide clear operational visibility.
           </p>
         </div>
 
-        {/* 3 Distinct Service Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* 6 Strategic Capabilities Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service) => {
             const styles = getCardAccentStyles(service.id)
             return (
@@ -125,7 +162,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                   {/* Bullet examples list */}
                   <div className="pt-5 border-t border-white/10 mb-8">
                     <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3.5">
-                      Common Applications:
+                      Core Capabilities:
                     </div>
                     <ul className="space-y-2.5">
                       {service.examples.map((example, idx) => (
@@ -149,7 +186,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
                   <p className="text-[11px] text-center text-slate-400 mt-2">
-                    Preselects this service in our project enquiry form
+                    Preselects this solution in our consultation form
                   </p>
                 </div>
               </div>
@@ -157,20 +194,20 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
           })}
         </div>
 
-        {/* Integration notice */}
+        {/* Integrated Solution Notice */}
         <div className="mt-14 p-6 rounded-2xl bg-white/[0.03] border border-white/10 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-left">
-            <h4 className="text-sm font-bold text-white">Need an integrated, multi-part solution?</h4>
+            <h4 className="text-sm font-bold text-white">Need a complete lead-to-delivery operations solution?</h4>
             <p className="text-xs text-slate-400">
-              We frequently connect workflow automation directly into custom BI dashboards and AI inquiry triage.
+              We deploy the Vertiligence Operations Hub alongside custom n8n automations, BI dashboards, and team onboarding.
             </p>
           </div>
           <button
             type="button"
-            onClick={() => onSelectService('integrated')}
+            onClick={() => onSelectService('operations-hub')}
             className="shrink-0 px-4 py-2 rounded-lg text-xs font-semibold text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/10 transition-colors cursor-pointer"
           >
-            Discuss Custom Scope →
+            Discuss Operations Hub →
           </button>
         </div>
       </div>

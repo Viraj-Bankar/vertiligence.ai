@@ -1,4 +1,13 @@
-export type ServiceId = 'automation' | 'dashboard' | 'chatbot' | 'integrated'
+export type ServiceId =
+  | 'operations-hub'
+  | 'automation'
+  | 'analytics'
+  | 'chatbots'
+  | 'implementation'
+  | 'managed-support'
+  | 'dashboard'
+  | 'chatbot'
+  | 'integrated'
 
 export interface ServiceItem {
   id: ServiceId
@@ -14,6 +23,7 @@ export interface ServiceItem {
 export interface ProcessStep {
   step: string
   title: string
+  phaseName: string
   summary: string
   deliverables: string[]
   timeline: string
@@ -55,3 +65,4 @@ export interface FormErrors {
   description?: string
   consent?: string
 }
+

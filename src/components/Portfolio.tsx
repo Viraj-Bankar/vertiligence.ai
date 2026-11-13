@@ -3,54 +3,64 @@ import { PORTFOLIO_DEMOS } from '../data/content'
 import type { PortfolioItem } from '../types'
 import { PortfolioModal } from './PortfolioModal'
 import {
+  LayoutDashboard,
   Workflow,
   Bot,
   BarChart3,
   Code2,
   ChevronRight,
   Sparkles,
-  Info,
+  Layers,
 } from 'lucide-react'
-
 
 export const Portfolio: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null)
 
   const getDemoIcon = (id: string) => {
     switch (id) {
+      case 'operations-hub':
+        return <LayoutDashboard className="w-5 h-5 text-cyan-400" />
       case 'leadflow':
-        return <Workflow className="w-5 h-5 text-cyan-400" />
+        return <Workflow className="w-5 h-5 text-blue-400" />
       case 'faqmate':
         return <Bot className="w-5 h-5 text-indigo-400" />
       case 'insightboard':
-        return <BarChart3 className="w-5 h-5 text-blue-400" />
+        return <BarChart3 className="w-5 h-5 text-sky-400" />
       default:
         return <Sparkles className="w-5 h-5 text-cyan-400" />
     }
   }
 
+  const handleScrollToContact = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const contactElement = document.getElementById('contact')
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
-    <section id="portfolio" className="py-20 md:py-28 relative" aria-labelledby="portfolio-title">
+    <section id="portfolio" className="py-20 md:py-28 relative scroll-mt-24" aria-labelledby="portfolio-title">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-4">
-            <Info className="w-3.5 h-3.5" />
-            <span>Technical Prototypes & Planned Demos</span>
+            <Layers className="w-3.5 h-3.5" />
+            <span>Architecture Blueprints & Prototypes</span>
           </div>
           <h2 id="portfolio-title" className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Portfolio In Progress
+            Technical Prototypes & Architecture
           </h2>
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-            Transparent architectural blueprints and sandbox demonstrations engineered to showcase our automation logic, data modeling, and conversational design.
+            Transparent architectural blueprints, pipeline flows, and working prototypes engineered to demonstrate our operations software, automation logic, and conversational design.
           </p>
           <div className="mt-3 inline-block text-xs font-mono text-cyan-400/90 bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/10">
-            Note: These cards represent active internal demonstrations, not fabricated client claims.
+            Transparent Status: Active internal prototypes and sandbox builds. Zero fabricated case studies or unverified logos.
           </div>
         </div>
 
-        {/* 3 Initial Demo Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* 4 Demo Cards (2x2 Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PORTFOLIO_DEMOS.map((item) => (
             <div
               key={item.id}
@@ -64,7 +74,7 @@ export const Portfolio: React.FC = () => {
                   </div>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-[11px] font-mono text-cyan-300 font-medium">
                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                    <span>Demo in development</span>
+                    <span>{item.badge}</span>
                   </span>
                 </div>
 
@@ -84,7 +94,7 @@ export const Portfolio: React.FC = () => {
                 {/* Tech Stack Pills */}
                 <div className="pt-4 border-t border-white/10 mb-6">
                   <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2.5">
-                    Stack:
+                    Architecture Stack:
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {item.techStack.map((tech) => (
@@ -112,24 +122,25 @@ export const Portfolio: React.FC = () => {
 
                 <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 pt-1">
                   <div className="flex items-center gap-1.5">
-                    <Code2 className="w-3.5 h-3.5" />
-                    <span>Clean modular code</span>
+                    <Code2 className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Modular architecture</span>
                   </div>
-                  <span className="font-mono text-slate-400">Sandbox slot ready</span>
+                  <span className="font-mono text-slate-400">Sandbox build active</span>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Open Architecture Note */}
+        {/* Scoping Conversation Note */}
         <div className="mt-14 max-w-2xl mx-auto text-center p-5 rounded-2xl bg-slate-900/40 border border-white/5 text-xs text-slate-400">
           Want to discuss how one of these architectural pipelines could adapt to your company&apos;s custom data schemas?{' '}
           <a
             href="#contact"
+            onClick={handleScrollToContact}
             className="text-cyan-400 hover:underline font-semibold"
           >
-            Schedule a scoping conversation →
+            Schedule an engineering scoping call →
           </a>
         </div>
       </div>
