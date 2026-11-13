@@ -7,6 +7,7 @@ import { Process } from './components/Process'
 import { Portfolio } from './components/Portfolio'
 import { WhyUs } from './components/WhyUs'
 import { About } from './components/About'
+import { FAQ } from './components/FAQ'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { PrivacyModal } from './components/PrivacyModal'
@@ -60,7 +61,10 @@ export function App() {
         {/* Section G: About Section */}
         <About />
 
-        {/* Section H: Contact Section */}
+        {/* Section H: FAQ Section */}
+        <FAQ onDiscussClick={() => scrollToContact()} />
+
+        {/* Section I: Contact Section */}
         <Contact
           selectedService={selectedService}
           onServiceChange={setSelectedService}

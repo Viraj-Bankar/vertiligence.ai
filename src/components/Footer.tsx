@@ -189,6 +189,18 @@ export const Footer: React.FC<FooterProps> = ({ onSelectService, onOpenPrivacy }
               </li>
               <li>
                 <a
+                  href="#faq"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleLinkClick('#faq')
+                  }}
+                  className="hover:text-cyan-400 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400"
+                >
+                  Client FAQ
+                </a>
+              </li>
+              <li>
+                <a
                   href="#contact"
                   onClick={(e) => {
                     e.preventDefault()

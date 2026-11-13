@@ -1,4 +1,4 @@
-import type { ServiceItem, ProcessStep, PortfolioItem } from '../types'
+import type { ServiceItem, ProcessStep, PortfolioItem, FAQItem } from '../types'
 
 export const SERVICES: ServiceItem[] = [
   {
@@ -128,7 +128,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     deliverables: [
       'System architecture blueprint',
       'Data flow & logic specifications',
-      'Fixed-price quote & milestone scope',
+      'Milestone-based project agreement',
     ],
     timeline: '2–4 business days',
   },
@@ -163,9 +163,9 @@ export const PROCESS_STEPS: ProcessStep[] = [
     phaseName: 'Phase 05',
     title: 'Adopt & Support',
     summary:
-      'Role-based user onboarding, video runbooks, 100% credential and code transfer, and ongoing SLA-backed support.',
+      'Role-based user onboarding, video runbooks, agreed credential/code handover, and ongoing SLA-backed support.',
     deliverables: [
-      '100% credential & source ownership transfer',
+      'Agreed credential & code handover per contract',
       'Comprehensive video runbooks & architecture docs',
       'Agreed post-launch warranty & SLA monitoring',
     ],
@@ -187,6 +187,48 @@ export const PORTFOLIO_DEMOS: PortfolioItem[] = [
       processing: 'Tenant-isolated RBAC, automated onboarding triggers, task routing, and audit logging',
       output: 'Unified executive dashboard, real-time milestone tracking, and stakeholder reporting',
     },
+    diagramNodes: [
+      {
+        step: '01',
+        name: 'Enquiry Intake',
+        role: 'Ingestion Layer',
+        componentType: 'trigger',
+        status: 'implemented',
+        description: 'Multi-channel webhooks and enquiry form capture normalized into standard lead payloads.',
+      },
+      {
+        step: '02',
+        name: 'Tenant RBAC & Validation',
+        role: 'Security Gateway',
+        componentType: 'validation',
+        status: 'implemented',
+        description: 'Tenant isolation boundary checking role permissions, domain validity, and data integrity.',
+      },
+      {
+        step: '03',
+        name: 'Lead-to-Delivery Engine',
+        role: 'Core Orchestrator',
+        componentType: 'orchestration',
+        status: 'implemented',
+        description: 'Automated stage advancement rules routing qualified prospects directly into client workspaces.',
+      },
+      {
+        step: '04',
+        name: 'Task & Document Workflows',
+        role: 'Execution Modules',
+        componentType: 'storage',
+        status: 'conceptual',
+        description: 'Interactive onboarding checklists, document exchange links, and milestone task tracking.',
+      },
+      {
+        step: '05',
+        name: 'Executive Telemetry & Reporting',
+        role: 'Visibility Layer',
+        componentType: 'notification',
+        status: 'conceptual',
+        description: 'Real-time pipeline velocity, project health indicators, and operational audit trail exports.',
+      },
+    ],
     plannedFeatures: [
       'Multi-tenant organization workspaces with strict role-based access control (RBAC)',
       'Client onboarding checklists with automated document collection and stage progression',
@@ -207,6 +249,56 @@ export const PORTFOLIO_DEMOS: PortfolioItem[] = [
       processing: 'Email syntax check, duplicate deduplication, and conditional routing',
       output: 'Normalized database entry + instant prioritized team notification',
     },
+    diagramNodes: [
+      {
+        step: '01',
+        name: 'Form / Webhook',
+        role: 'Inbound Trigger',
+        componentType: 'trigger',
+        status: 'implemented',
+        description: 'Captures incoming lead payloads from website contact forms, ad endpoints, or landing pages.',
+      },
+      {
+        step: '02',
+        name: 'Validation & Deduplication',
+        role: 'Sanitization Node',
+        componentType: 'validation',
+        status: 'implemented',
+        description: 'Verifies email RFC syntax, validates corporate domains, and blocks duplicate entries.',
+      },
+      {
+        step: '03',
+        name: 'Automation Workflow',
+        role: 'n8n Engine',
+        componentType: 'orchestration',
+        status: 'implemented',
+        description: 'Conditional routing logic classifying leads based on budget tiers, industry, and priority.',
+      },
+      {
+        step: '04',
+        name: 'Database / Spreadsheet',
+        role: 'Persistent Storage',
+        componentType: 'storage',
+        status: 'implemented',
+        description: 'Stores clean, structured records into PostgreSQL or central team Google Sheets.',
+      },
+      {
+        step: '05',
+        name: 'Email Notification',
+        role: 'Alert Dispatch',
+        componentType: 'notification',
+        status: 'implemented',
+        description: 'Dispatches instant formatted briefing emails and Slack/WhatsApp notifications to team members.',
+      },
+      {
+        step: '06',
+        name: 'Lead Follow-up',
+        role: 'Execution Action',
+        componentType: 'action',
+        status: 'conceptual',
+        description: 'Automated follow-up scheduling triggers and calendar invitation dispatch to prospects.',
+      },
+    ],
     plannedFeatures: [
       'Configurable lead qualification score based on company size and budget tier',
       'Automatic fallback queuing in case destination API is rate-limited or unavailable',
@@ -226,6 +318,48 @@ export const PORTFOLIO_DEMOS: PortfolioItem[] = [
       processing: 'Document chunk retrieval + strict prompt guardrails against hallucination',
       output: 'Contextual, verified response with source citations or escalation ticket with full transcript',
     },
+    diagramNodes: [
+      {
+        step: '01',
+        name: 'User Query',
+        role: 'Conversational Input',
+        componentType: 'trigger',
+        status: 'implemented',
+        description: 'Receives user inquiries through website chat widgets, customer portals, or support inboxes.',
+      },
+      {
+        step: '02',
+        name: 'Knowledge Retrieval',
+        role: 'RAG Search Engine',
+        componentType: 'orchestration',
+        status: 'implemented',
+        description: 'Performs semantic similarity search over verified company documentation using pgvector chunks.',
+      },
+      {
+        step: '03',
+        name: 'AI Response Generation',
+        role: 'Bounded LLM Prompting',
+        componentType: 'action',
+        status: 'implemented',
+        description: 'Drafts accurate, contextual answers strictly restricted to retrieved source documents with citations.',
+      },
+      {
+        step: '04',
+        name: 'Confidence & Fallback Check',
+        role: 'Guardrail Engine',
+        componentType: 'validation',
+        status: 'implemented',
+        description: 'Evaluates answer confidence; declines off-topic questions or unverified assumptions deterministically.',
+      },
+      {
+        step: '05',
+        name: 'Human Escalation',
+        role: 'Handoff Protocol',
+        componentType: 'notification',
+        status: 'conceptual',
+        description: 'Packages chat transcripts into prioritized support tickets and notifies human team engineers.',
+      },
+    ],
     plannedFeatures: [
       'Strict knowledge boundary: declines to answer off-topic or unverified questions',
       'In-chat lead collection form triggered when customer asks about custom pricing or enterprise scope',
@@ -245,6 +379,56 @@ export const PORTFOLIO_DEMOS: PortfolioItem[] = [
       processing: 'Data sanitization, KPI metric aggregation, utilization calculation, and trend modeling',
       output: 'Responsive executive dashboard with dynamic filtering and exportable summaries',
     },
+    diagramNodes: [
+      {
+        step: '01',
+        name: 'Business Dataset',
+        role: 'Raw Data Source',
+        componentType: 'trigger',
+        status: 'implemented',
+        description: 'Ingests periodic CSV exports, SQL database replicas, or accounting exports.',
+      },
+      {
+        step: '02',
+        name: 'Data Cleaning',
+        role: 'Normalization Layer',
+        componentType: 'validation',
+        status: 'implemented',
+        description: 'Strips anomalies, handles missing fields, sanitizes timestamps, and aligns fiscal calendars.',
+      },
+      {
+        step: '03',
+        name: 'Transformation',
+        role: 'ETL Pipeline',
+        componentType: 'orchestration',
+        status: 'implemented',
+        description: 'Aggregates metrics, calculates conversion ratios, and computes rolling averages.',
+      },
+      {
+        step: '04',
+        name: 'Analytics Engine',
+        role: 'Computation Core',
+        componentType: 'storage',
+        status: 'implemented',
+        description: 'Models pipeline velocity, team workload balance, and inventory turnover thresholds.',
+      },
+      {
+        step: '05',
+        name: 'KPI Dashboard',
+        role: 'Visual Presentation',
+        componentType: 'action',
+        status: 'implemented',
+        description: 'Interactive charting with dynamic date filters, breakdown categories, and threshold alerts.',
+      },
+      {
+        step: '06',
+        name: 'Business Insights',
+        role: 'Decision Output',
+        componentType: 'notification',
+        status: 'conceptual',
+        description: 'One-click executive PDF exports and automated weekly KPI digests for leadership meetings.',
+      },
+    ],
     plannedFeatures: [
       'Pipeline conversion & revenue velocity with breakdown by service offering',
       'Team capacity & delivery health alerts with lead-time estimation',
@@ -279,9 +463,9 @@ export const WHY_VERTILIGENCE = [
     icon: 'ShieldCheck',
   },
   {
-    title: 'Full Client Ownership & Transparent Handover',
+    title: 'Clear Deliverables & Transparent Handover',
     description:
-      'You receive complete documentation, architecture runbooks, and full ownership of your credentials and code. No vendor lock-in and no opaque intermediaries.',
+      'You receive complete documentation, architecture runbooks, and defined ownership of credentials and agreed code deliverables as outlined in your project agreement.',
     icon: 'FileCheck',
   },
   {
@@ -292,16 +476,103 @@ export const WHY_VERTILIGENCE = [
   },
 ]
 
+export const FAQ_ITEMS: FAQItem[] = [
+  {
+    id: 'services-overview',
+    category: 'Services',
+    question: 'What services does Vertiligence AI provide?',
+    answer:
+      'Vertiligence AI is a technology engineering and digital transformation company. We engineer intelligent business ecosystems combining modular operations software (Vertiligence Operations Hub), AI workflow automation (n8n & API pipelines), operational BI dashboards, domain-grounded conversational assistants, systems integration, and ongoing managed technical support.',
+  },
+  {
+    id: 'custom-software',
+    category: 'Services',
+    question: 'Can you develop custom software for our business?',
+    answer:
+      'Yes. While we leverage proven modular patterns—such as our Operations Hub architecture—to accelerate time-to-value, we design and build bespoke automated workflows, custom API connectors, database schemas, and tailored executive web applications engineered to solve your specific operational bottlenecks.',
+  },
+  {
+    id: 'existing-apps-integration',
+    category: 'Services',
+    question: 'Can you integrate our existing business applications?',
+    answer:
+      'Yes. We operate with an interoperability-first engineering philosophy. We integrate the tools your team already relies on daily—such as Google Workspace, Slack, PostgreSQL, existing CRMs, ERPs, accounting software, and internal databases—eliminating manual copy-paste handoffs rather than forcing disruptive system replacements.',
+  },
+  {
+    id: 'chatbots-and-automation',
+    category: 'Services',
+    question: 'Do you provide AI chatbot and workflow automation solutions?',
+    answer:
+      'Yes. We build resilient multi-step automation pipelines using n8n, secure webhooks, and modern APIs, alongside domain-grounded conversational AI assistants. Our chatbots operate with strict retrieval-augmented generation (RAG) boundaries over verified documentation and include deterministic protocols to escalate complex queries to human staff.',
+  },
+  {
+    id: 'engagement-process',
+    category: 'Process & Pricing',
+    question: 'How does your project engagement process work?',
+    answer:
+      'We follow a structured five-phase engineering lifecycle: (1) Diagnose — workflow audit and schema mapping; (2) Design — system architecture blueprint and fixed milestone scope; (3) Implement — modular build and staging migration; (4) Validate — rigorous edge-case, retry, and security testing; and (5) Adopt & Support — role-based onboarding and agreed operational support.',
+  },
+  {
+    id: 'project-cost',
+    category: 'Process & Pricing',
+    question: 'How much does a typical project cost?',
+    answer:
+      'Project pricing depends strictly on technical scope, integration complexity, and system scale. We offer indicative starter options for single-workflow automations up to custom multi-system rollouts. Transparent, milestone-based quotes with clear deliverables are provided following our initial technical discovery conversation.',
+  },
+  {
+    id: 'implementation-timeline',
+    category: 'Process & Pricing',
+    question: 'How long does implementation take?',
+    answer:
+      'Timelines vary according to project scope. Focused automation pipelines or operational dashboards are typically deployed in 1 to 3 weeks, while comprehensive multi-system integrations or custom platform builds generally span 3 to 6 weeks under agreed milestone schedules.',
+  },
+  {
+    id: 'ip-ownership',
+    category: 'Data & Ownership',
+    question: 'Who owns the developed software and source code?',
+    answer:
+      'Ownership terms, licensing arrangements, credential handovers, and source-code transfers are explicitly defined in the mutual project agreement. Upon successful milestone completion and agreed project acceptance, clients receive administrative control and agreed deliverables without proprietary vendor lock-in.',
+  },
+  {
+    id: 'data-privacy',
+    category: 'Data & Ownership',
+    question: 'How do you handle business data and privacy?',
+    answer:
+      'Data handling, confidentiality boundaries, and security requirements are discussed, tailored, and agreed upon for each project engagement. We enforce strict data access protocols, tenant-isolated data models, secure credential handling, and a strict policy against unauthorized training of external AI models on client data.',
+  },
+  {
+    id: 'maintenance-support',
+    category: 'Process & Pricing',
+    question: 'Do you provide maintenance and technical support?',
+    answer:
+      'Yes. We offer continuous managed operations support packages covering proactive 24/7 pipeline health monitoring, error alerting, third-party API update and token maintenance, periodic health audits, and agreed SLA response commitments to ensure business systems remain dependable.',
+  },
+  {
+    id: 'start-small-expand',
+    category: 'Process & Pricing',
+    question: 'Can we start with a small project and expand later?',
+    answer:
+      'Yes. Many of our client relationships start with a focused, high-impact project—such as automating inbound lead processing or consolidating a weekly data reporting bottleneck—before expanding into broader workflow integrations, custom dashboards, or Operations Hub deployments.',
+  },
+  {
+    id: 'startups-and-smbs',
+    category: 'Services',
+    question: 'Do you work with startups and small businesses?',
+    answer:
+      'Yes. We frequently partner with growing professional services firms, digital agencies, IT consultancies, and modern startups that need to eliminate repetitive administrative overhead, improve response velocity, and build scalable systems without inflating headcount.',
+  },
+]
+
 export const STUDIO_DETAILS = {
   brandName: 'Vertiligence AI',
   tagline: 'Intelligence. Automation. Impact.',
-  positioning:
-    'Vertiligence AI is an AI-enabled business systems and automation company that helps growing organizations connect customer operations, internal workflows, and business information through an integrated platform and expert implementation.',
+  positioning: 'Engineering Intelligent Business Ecosystems.',
+  missionStatement:
+    'We help growing organizations connect customer operations, internal workflows, and business intelligence through modular software and expert systems integration.',
   targetMarket:
     'Digital agencies, IT services firms, consultancies, and growing modern businesses.',
   email: 'work.vertiligenceai@gmail.com',
   location: 'India (Serving forward-thinking teams globally)',
-  companyType: 'AI-Enabled Business Systems & Automation',
+  companyType: 'Technology Engineering & Digital Transformation',
   githubUrl: 'https://github.com/Viraj-Bankar/vertiligence.ai',
 }
-

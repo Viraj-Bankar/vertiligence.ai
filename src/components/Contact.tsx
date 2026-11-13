@@ -12,6 +12,10 @@ import {
   MessageSquare,
   Sparkles,
   Loader2,
+  Calendar,
+  Clock,
+  PhoneCall,
+  FileText,
 } from 'lucide-react'
 
 interface ContactProps {
@@ -23,6 +27,7 @@ export const Contact: React.FC<ContactProps> = ({
   selectedService,
   onServiceChange,
 }) => {
+  const [activeTab, setActiveTab] = useState<'project' | 'discovery'>('project')
   const [formData, setFormData] = useState<Omit<EnquiryFormData, 'service'>>({
     name: '',
     email: '',
@@ -338,11 +343,89 @@ ${formData.name}`
           </div>
         </div>
 
+        {/* Option Selector Tabs */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+          <button
+            type="button"
+            onClick={() => setActiveTab('project')}
+            className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3.5 ${
+              activeTab === 'project'
+                ? 'bg-cyan-950/40 border-cyan-400 text-white shadow-[0_0_20px_rgba(0,210,255,0.15)] ring-1 ring-cyan-400/50'
+                : 'bg-[#090E1A]/80 border-white/10 text-slate-300 hover:border-white/25 hover:bg-[#090E1A]'
+            }`}
+          >
+            <div
+              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                activeTab === 'project'
+                  ? 'bg-cyan-500/20 border border-cyan-400/50 text-cyan-300'
+                  : 'bg-white/5 border border-white/10 text-slate-400'
+              }`}
+            >
+              <FileText className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-mono uppercase tracking-wider text-cyan-300 font-semibold mb-0.5">
+                Option A
+              </div>
+              <div className="font-bold text-white text-sm sm:text-base">
+                Discuss Your Project
+              </div>
+              <p className="text-xs text-slate-400 mt-1 leading-normal">
+                Structured technical enquiry & scoping form for direct recommendations.
+              </p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('discovery')}
+            className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3.5 ${
+              activeTab === 'discovery'
+                ? 'bg-cyan-950/40 border-cyan-400 text-white shadow-[0_0_20px_rgba(0,210,255,0.15)] ring-1 ring-cyan-400/50'
+                : 'bg-[#090E1A]/80 border-white/10 text-slate-300 hover:border-white/25 hover:bg-[#090E1A]'
+            }`}
+          >
+            <div
+              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                activeTab === 'discovery'
+                  ? 'bg-cyan-500/20 border border-cyan-400/50 text-cyan-300'
+                  : 'bg-white/5 border border-white/10 text-slate-400'
+              }`}
+            >
+              <PhoneCall className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-xs font-mono uppercase tracking-wider text-cyan-300 font-semibold mb-0.5">
+                Option B
+              </div>
+              <div className="font-bold text-white text-sm sm:text-base">
+                Book a Discovery Call
+              </div>
+              <p className="text-xs text-slate-400 mt-1 leading-normal">
+                20-minute focused scoping discussion with an engineering architect.
+              </p>
+            </div>
+          </button>
+        </div>
+
         {/* Form Container */}
         <div className="rounded-2xl bg-[#090E1A]/95 backdrop-blur-xl border border-white/10 p-6 sm:p-10 shadow-2xl">
-          {!submitted ? (
-            <form onSubmit={handleSubmit} noValidate className="space-y-6">
-              {/* Row 1: Name and Email */}
+          {activeTab === 'project' ? (
+            !submitted ? (
+              <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                {/* Information Required Guidance Banner */}
+                <div className="p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300">
+                  <div className="font-semibold text-cyan-300 mb-1 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>What Information We Need:</span>
+                  </div>
+                  <p className="leading-relaxed text-slate-300">
+                    To prepare an accurate technical assessment, please share:
+                    (1) Your contact details, (2) The primary solution required, and (3) A brief description of what takes too much time or what workflow you want to automate.
+                  </p>
+                </div>
+
+                {/* Row 1: Name and Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label
@@ -651,6 +734,144 @@ ${formData.name}`
                 <Sparkles className="w-4 h-4 text-cyan-400" />
                 <span>We typically review technical scopes and respond within 1 business day.</span>
               </div>
+            </div>
+          )) : (
+            /* Option B: Discovery Call View */
+            <div className="space-y-8 animate-in fade-in duration-300">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
+                    <Calendar className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white">
+                      20-Minute Discovery Call
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Direct architectural consultation with our engineering team. Zero sales pressure.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Available for Scoping</span>
+                </div>
+              </div>
+
+              {/* Discovery Call Pillars */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center mb-3">
+                    <span className="text-xs font-bold font-mono">01</span>
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-1">
+                    Operational Friction Audit
+                  </h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Identify where manual data re-entry, disconnected spreadsheets, or delayed reporting waste time.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">
+                  <div className="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center mb-3">
+                    <span className="text-xs font-bold font-mono">02</span>
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-1">
+                    Architecture & Tech Fit
+                  </h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Evaluate whether n8n workflow automation, custom APIs, BI dashboards, or Operations Hub fits best.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-900/80 border border-white/10">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+                    <span className="text-xs font-bold font-mono">03</span>
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-1">
+                    Indicative Scope & Budget
+                  </h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Receive transparent timeline estimates, milestone phases, and technical guidance.
+                  </p>
+                </div>
+              </div>
+
+              {/* Call Format Specs */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+                <div className="flex items-center gap-2 text-slate-300">
+                  <Clock className="w-4 h-4 text-cyan-400" />
+                  <span>Duration: <strong>20 Minutes</strong></span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <PhoneCall className="w-4 h-4 text-blue-400" />
+                  <span>Format: <strong>Google Meet / Video Call</strong></span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-300">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span>Commitment: <strong>Free Scoping Session</strong></span>
+                </div>
+              </div>
+
+              {/* Booking CTA or Configured Calendar URL */}
+              {import.meta.env.VITE_CALENDAR_BOOKING_URL ? (
+                <div className="pt-2 text-center sm:text-left">
+                  <a
+                    href={import.meta.env.VITE_CALENDAR_BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_25px_rgba(0,210,255,0.3)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                  >
+                    <Calendar className="w-5 h-5" />
+                    <span>Open Live Booking Calendar</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              ) : (
+                /* High-fidelity Direct Request Slot (No nonfunctional or broken buttons) */
+                <div className="rounded-xl bg-slate-900 border border-cyan-500/30 p-6 space-y-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <h4 className="text-sm font-bold text-white flex items-center gap-2">
+                        <span>Direct Booking Request Channel</span>
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-cyan-950 text-cyan-300 border border-cyan-500/30">
+                          Active
+                        </span>
+                      </h4>
+                      <p className="text-xs text-slate-400 mt-1">
+                        Self-serve automated calendar slots are allocated for scheduled production sprints. Request a dedicated discovery slot below, and our engineering team will respond with a Google Meet calendar invitation within 24 hours.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+                    <a
+                      href={`mailto:work.vertiligenceai@gmail.com?subject=${encodeURIComponent(
+                        'Discovery Call Request — Vertiligence AI'
+                      )}&body=${encodeURIComponent(
+                        'Hello Vertiligence AI Engineering Team,\n\nI would like to schedule a 20-minute technical discovery call.\n\nName: \nCompany / Organization: \nPreferred Day(s) and Time Window (with timezone): \nPrimary Topic or Operational Challenge: \n\nThank you!'
+                      )}`}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(0,210,255,0.3)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                    >
+                      <Calendar className="w-4 h-4" />
+                      <span>Request Discovery Slot via Email</span>
+                    </a>
+
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-xs font-semibold text-slate-300 bg-white/10 hover:bg-white/15 border border-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                    >
+                      {emailCopied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      <span>{emailCopied ? 'Email Copied!' : 'Copy work.vertiligenceai@gmail.com'}</span>
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] font-mono text-slate-400 pt-1">
+                    * Production calendar integration (e.g. Cal.com / Calendly) connects automatically when <code>VITE_CALENDAR_BOOKING_URL</code> is configured.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

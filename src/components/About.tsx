@@ -35,9 +35,9 @@ export const About: React.FC = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Full Client Ownership</h4>
+                  <h4 className="text-sm font-bold text-white">Transparent IP & Source Transfer</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    You hold all credentials, tenant configurations, and source code.
+                    Ownership, licensing, and source-code handover terms are clearly defined in each project agreement.
                   </p>
                 </div>
               </div>
@@ -47,7 +47,7 @@ export const About: React.FC = () => {
                 <div>
                   <h4 className="text-sm font-bold text-white">Secure by Design & Privacy</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Tenant isolation, RBAC permissions, and zero unauthorized AI model training.
+                    Tenant isolation, RBAC permissions, and customized data protection boundaries agreed per project.
                   </p>
                 </div>
               </div>
@@ -70,6 +70,20 @@ export const About: React.FC = () => {
                     Communicate directly with system architects with clear milestones and SLAs.
                   </p>
                 </div>
+              </div>
+            </div>
+
+            {/* Founder Engineering Statement (Task 4) */}
+            <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-blue-950/40 via-cyan-950/30 to-slate-900/50 border border-cyan-500/20 relative">
+              <div className="text-xs font-semibold uppercase tracking-wider text-cyan-300 mb-2.5 flex items-center gap-2">
+                <Terminal className="w-4 h-4 text-cyan-400" />
+                <span>Founder Engineering Statement</span>
+              </div>
+              <blockquote className="text-sm sm:text-base text-slate-200 leading-relaxed italic border-l-2 border-cyan-400 pl-4 py-1">
+                &ldquo;Technology should solve real operational problems rather than simply introduce more software. Every system we design—whether an automated data pipeline, an AI assistant, or a custom operations hub—is engineered with a single standard: eliminate manual friction, integrate with existing workflows, and deliver measurable business utility.&rdquo;
+              </blockquote>
+              <div className="mt-3 pl-4 text-xs font-mono text-slate-400">
+                — Engineering Leadership, Vertiligence AI
               </div>
             </div>
           </div>

@@ -47,6 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
     { label: 'Prototypes', href: '#portfolio' },
     { label: 'Why Us', href: '#why-us' },
     { label: 'About', href: '#about' },
+    { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ]
 

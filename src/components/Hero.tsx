@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({
 
           {/* Supporting Text */}
           <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed mb-9">
-            We help growing organizations connect customer operations, internal workflows, and business intelligence through our Operations Hub software and expert systems integration.
+            Engineering intelligent business ecosystems that connect customer operations, internal workflows, and business intelligence through our Operations Hub and expert systems integration.
           </p>
 
           {/* CTA Buttons */}
@@ -84,7 +84,7 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>100% Client Ownership</span>
+              <span>Transparent IP Transfer</span>
             </div>
           </div>
         </div>

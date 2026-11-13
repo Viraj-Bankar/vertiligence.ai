@@ -29,6 +29,15 @@ export interface ProcessStep {
   timeline: string
 }
 
+export interface ArchitectureNode {
+  step: string
+  name: string
+  role: string
+  componentType: 'trigger' | 'validation' | 'orchestration' | 'storage' | 'notification' | 'action'
+  status: 'implemented' | 'conceptual'
+  description: string
+}
+
 export interface PortfolioItem {
   id: string
   title: string
@@ -41,9 +50,17 @@ export interface PortfolioItem {
     processing: string
     output: string
   }
+  diagramNodes?: ArchitectureNode[]
   plannedFeatures: string[]
   githubUrl?: string
   liveUrl?: string
+}
+
+export interface FAQItem {
+  id: string
+  question: string
+  answer: string
+  category?: 'Services' | 'Process & Pricing' | 'Data & Ownership'
 }
 
 export interface EnquiryFormData {
@@ -65,4 +82,3 @@ export interface FormErrors {
   description?: string
   consent?: string
 }
-
