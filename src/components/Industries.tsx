@@ -126,3 +126,4 @@ export const Industries: React.FC<IndustriesProps> = ({ onSelectService }) => {
     </section>
   )
 }
+

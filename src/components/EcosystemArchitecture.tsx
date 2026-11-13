@@ -169,3 +169,4 @@ export const EcosystemArchitecture: React.FC = () => {
     </section>
   )
 }
+

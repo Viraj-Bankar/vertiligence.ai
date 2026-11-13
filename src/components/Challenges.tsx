@@ -104,3 +104,4 @@ export const Challenges: React.FC<ChallengesProps> = ({ onSelectService }) => {
     </section>
   )
 }
+
