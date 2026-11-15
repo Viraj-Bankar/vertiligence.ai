@@ -8,6 +8,7 @@ import {
   withdrawConsent,
   CURRENT_POLICY_VERSION,
 } from '../utils/cookieConsent'
+import { isAnalyticsConfigured } from '../analytics/analyticsConsent'
 import {
   X,
   ShieldCheck,
@@ -216,17 +217,33 @@ const CookiePreferencesDialog: React.FC<{ onClose: () => void }> = ({ onClose })
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <h4 className="text-sm font-bold text-white">
-                      Analytics & Performance
+                      Analytics & Performance (GA4)
                     </h4>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/5 text-slate-400 border border-white/10">
-                      Optional
+                    <span
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                        isAnalyticsConfigured()
+                          ? 'bg-white/5 text-slate-400 border-white/10'
+                          : 'bg-amber-950/60 text-amber-300 border-amber-500/30'
+                      }`}
+                    >
+                      {isAnalyticsConfigured() ? 'Optional' : 'Not Configured'}
                     </span>
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Allows us to count aggregate page visits, load speed benchmarks, and user journey flows to optimize website performance. Does not conduct behavioral profiling.
+                    Allows aggregate measurement of visits, referral sources, and feature engagement via Google Analytics 4. Anonymized IP; zero form briefs or PII transmitted.
                   </p>
                   <div className="mt-2 text-[11px] font-mono text-slate-400">
-                    Current status: Blocked unless explicitly enabled by you.
+                    {isAnalyticsConfigured() ? (
+                      <span className="text-cyan-400/90 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                        <span>Provider: Google Analytics 4 (GA4). Blocked unless explicitly enabled.</span>
+                      </span>
+                    ) : (
+                      <span className="text-amber-400/90 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                        <span>Status: Inactive on this deployment (No GA4 Measurement ID configured).</span>
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

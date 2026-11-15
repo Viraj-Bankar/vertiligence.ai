@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { X, ShieldCheck, Mail, Lock } from 'lucide-react'
+import { STUDIO_DETAILS } from '../data/content'
 
 interface PrivacyModalProps {
   isOpen: boolean
@@ -99,8 +100,8 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
 
           <p>
             If you ever wish to have your submitted contact information purged from our consultation inbox, contact us directly at{' '}
-            <a href="mailto:work.vertiligenceai@gmail.com" className="text-cyan-400 underline focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400">
-              work.vertiligenceai@gmail.com
+            <a href={`mailto:${STUDIO_DETAILS.email}`} className="text-cyan-400 underline focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-400">
+              {STUDIO_DETAILS.email}
             </a>
             .
           </p>

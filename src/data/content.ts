@@ -830,7 +830,7 @@ export const STUDIO_DETAILS = {
     'We engineer connected digital solutions through custom software, intelligent automation, AI and business intelligence — helping businesses simplify operations, connect systems and make smarter decisions.',
   targetMarket:
     'Growing organizations, digital agencies, modern businesses, and forward-looking enterprises.',
-  email: 'work.vertiligenceai@gmail.com',
+  email: 'mail.virajbankar@gmail.com',
   location: 'India (Serving forward-thinking teams globally)',
   companyType: 'Technology Engineering & Digital Transformation',
   githubUrl: 'https://github.com/Viraj-Bankar/vertiligence.ai',

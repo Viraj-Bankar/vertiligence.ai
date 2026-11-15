@@ -19,6 +19,7 @@ import { CookieConsentBanner } from './components/CookieConsentBanner'
 import { CookiePreferencesModal } from './components/CookiePreferencesModal'
 import { PrivacyPolicy } from './pages/PrivacyPolicy'
 import { CookiePolicy } from './pages/CookiePolicy'
+import { initAnalytics, trackPageView } from './analytics'
 
 function resolveCurrentRoute(): string {
   if (typeof window === 'undefined') return '/'
@@ -47,6 +48,28 @@ export function App() {
   const [selectedService, setSelectedService] = useState<ServiceId>('custom-software')
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
   const [cookiePreferencesOpen, setCookiePreferencesOpen] = useState(false)
+
+  // Initialize analytics subsystem synced with cookie consent
+  useEffect(() => {
+    const cleanup = initAnalytics()
+    return () => cleanup()
+  }, [])
+
+  // Track SPA pageview transitions
+  useEffect(() => {
+    const pageName =
+      currentRoute === '/'
+        ? 'Home'
+        : currentRoute === '/privacy-policy'
+        ? 'Privacy Policy'
+        : 'Cookie Policy'
+
+    trackPageView({
+      page_name: pageName,
+      page_path: currentRoute,
+      page_title: document.title,
+    })
+  }, [currentRoute])
 
   useEffect(() => {
     const handleLocationChange = () => {

@@ -5,6 +5,7 @@ import {
   ShieldAlert,
   Search,
 } from 'lucide-react'
+import { trackContactCtaClick } from '../analytics'
 
 interface ProcessAuditProps {
   onDiscussClick: () => void
@@ -52,7 +53,14 @@ export const ProcessAudit: React.FC<ProcessAuditProps> = ({ onDiscussClick }) =>
               <div className="pt-2">
                 <button
                   type="button"
-                  onClick={onDiscussClick}
+                  onClick={() => {
+                    trackContactCtaClick({
+                      cta_location: 'process_audit',
+                      cta_label: 'Discuss Your Business Challenges',
+                      target_service: 'consulting',
+                    })
+                    onDiscussClick()
+                  }}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_25px_rgba(0,210,255,0.25)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
                   <span>Discuss Your Business Challenges</span>

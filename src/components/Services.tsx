@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { SERVICES } from '../data/content'
 import type { ServiceId } from '../types'
+import { trackServiceView, trackContactCtaClick } from '../analytics'
 import {
   Layers,
   Globe,
@@ -218,7 +219,19 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                 <div className="pt-2">
                   <button
                     type="button"
-                    onClick={() => onSelectService(service.id)}
+                    onClick={() => {
+                      trackServiceView({
+                        service_id: service.id,
+                        service_name: service.title,
+                        source: 'card_click',
+                      })
+                      trackContactCtaClick({
+                        cta_location: 'services',
+                        cta_label: service.ctaText || 'Discuss This Service',
+                        target_service: service.id,
+                      })
+                      onSelectService(service.id)
+                    }}
                     className={`w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${styles.btnBg}`}
                   >
                     <span>{service.ctaText || 'Discuss This Service'}</span>

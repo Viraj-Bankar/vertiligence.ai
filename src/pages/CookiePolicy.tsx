@@ -252,10 +252,10 @@ export const CookiePolicy: React.FC<CookiePolicyProps> = ({
               <div className="p-5 rounded-xl bg-[#090E1A] border border-white/10 space-y-2">
                 <div className="flex items-center gap-2 text-blue-400">
                   <BarChart3 className="w-4 h-4" />
-                  <h3 className="font-bold text-white text-sm">Analytics & Performance</h3>
+                  <h3 className="font-bold text-white text-sm">Analytics & Measurement (Google Analytics 4)</h3>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Measures aggregated load times, screen size distributions, and anonymous visit counts to optimize layout performance and diagnose technical bugs. This category is strictly disabled until you explicitly opt in.
+                  When enabled by visitor consent, Google Analytics 4 (Google LLC) measures de-identified site visits, referral sources, engagement duration, and navigation flows. Placing cookies (<code>_ga</code>, <code>_ga_*</code>) is strictly blocked until you grant explicit consent. You can withdraw your consent at any time through our Cookie Settings.
                 </p>
               </div>
 

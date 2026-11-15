@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrandLogo } from './BrandLogo'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { trackContactCtaClick } from '../analytics'
 
 interface NavbarProps {
   onDiscussClick: () => void
@@ -112,7 +113,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
           <div className="hidden md:flex items-center gap-4">
             <button
               type="button"
-              onClick={onDiscussClick}
+              onClick={() => {
+                trackContactCtaClick({
+                  cta_location: 'navbar',
+                  cta_label: 'Discuss Your Operations',
+                })
+                onDiscussClick()
+              }}
               className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(0,210,255,0.25)] hover:shadow-[0_0_25px_rgba(0,210,255,0.45)] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400 cursor-pointer"
             >
               <span>Discuss Your Operations</span>
@@ -169,6 +176,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
                 type="button"
                 onClick={() => {
                   setMobileMenuOpen(false)
+                  trackContactCtaClick({
+                    cta_location: 'navbar',
+                    cta_label: 'Discuss Your Operations (Mobile)',
+                  })
                   onDiscussClick()
                 }}
                 className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-lg shadow-cyan-500/25 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"

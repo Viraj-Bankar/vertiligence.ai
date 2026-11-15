@@ -1,6 +1,7 @@
 import React from 'react'
 import { BUSINESS_CHALLENGES } from '../data/content'
 import type { ServiceId } from '../types'
+import { trackContactCtaClick } from '../analytics'
 import {
   AlertTriangle,
   CheckCircle2,
@@ -90,7 +91,14 @@ export const Challenges: React.FC<ChallengesProps> = ({ onSelectService }) => {
               <div className="pt-2 border-t border-white/10">
                 <button
                   type="button"
-                  onClick={() => onSelectService(item.serviceTarget)}
+                  onClick={() => {
+                    trackContactCtaClick({
+                      cta_location: 'challenges',
+                      cta_label: item.ctaLabel,
+                      target_service: item.serviceTarget,
+                    })
+                    onSelectService(item.serviceTarget)
+                  }}
                   className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl text-xs font-semibold text-slate-200 bg-white/5 hover:bg-cyan-500/15 hover:text-cyan-200 border border-white/10 hover:border-cyan-400/40 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
                   <span>{item.ctaLabel}</span>

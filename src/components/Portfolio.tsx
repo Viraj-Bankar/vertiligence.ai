@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { PORTFOLIO_DEMOS } from '../data/content'
 import type { PortfolioItem } from '../types'
 import { PortfolioModal } from './PortfolioModal'
+import { trackPortfolioView } from '../analytics'
 import {
   LayoutDashboard,
   Workflow,
@@ -113,7 +114,13 @@ export const Portfolio: React.FC = () => {
               <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
                 <button
                   type="button"
-                  onClick={() => setSelectedItem(item)}
+                  onClick={() => {
+                    trackPortfolioView({
+                      project_id: item.id,
+                      project_title: item.title,
+                    })
+                    setSelectedItem(item)
+                  }}
                   className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/10 hover:border-cyan-500/30 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
                   <span>Inspect Architecture & Specs</span>

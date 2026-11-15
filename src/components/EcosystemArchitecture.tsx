@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ECOSYSTEM_LAYERS } from '../data/content'
+import { trackSolutionSelected } from '../analytics'
 import {
   Layers,
   Globe,
@@ -91,7 +92,16 @@ export const EcosystemArchitecture: React.FC = () => {
               <div key={layer.layerNumber} className="relative">
                 {/* Layer Card */}
                 <div
-                  onClick={() => setActiveLayer(isSelected ? null : layer.layerNumber)}
+                  onClick={() => {
+                    const next = isSelected ? null : layer.layerNumber
+                    setActiveLayer(next)
+                    if (next !== null) {
+                      trackSolutionSelected({
+                        layer_id: String(layer.layerNumber),
+                        layer_name: layer.title,
+                      })
+                    }
+                  }}
                   className={`p-5 sm:p-6 rounded-2xl border transition-all duration-300 cursor-pointer ${
                     isSelected
                       ? 'bg-[#0B1224] border-cyan-400 shadow-[0_0_25px_rgba(0,210,255,0.15)] ring-1 ring-cyan-400/50'

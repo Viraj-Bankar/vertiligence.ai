@@ -6,6 +6,7 @@ import {
   MessageSquare,
   Sparkles,
 } from 'lucide-react'
+import { trackContactCtaClick } from '../analytics'
 
 interface FAQProps {
   onDiscussClick: () => void
@@ -207,7 +208,13 @@ export const FAQ: React.FC<FAQProps> = ({ onDiscussClick }) => {
 
           <button
             type="button"
-            onClick={onDiscussClick}
+            onClick={() => {
+              trackContactCtaClick({
+                cta_location: 'faq',
+                cta_label: 'Discuss Your Project',
+              })
+              onDiscussClick()
+            }}
             className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-md shadow-cyan-500/20 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
           >
             <MessageSquare className="w-3.5 h-3.5" />

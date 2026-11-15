@@ -1,6 +1,7 @@
 import React from 'react'
 import { HeroVisual } from './HeroVisual'
 import { ArrowRight, MessageSquare, ShieldCheck, Cpu, Code2, LayoutDashboard } from 'lucide-react'
+import { trackContactCtaClick } from '../analytics'
 
 interface HeroProps {
   onExploreServices: () => void
@@ -55,7 +56,13 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <button
               type="button"
-              onClick={onDiscussProject}
+              onClick={() => {
+                trackContactCtaClick({
+                  cta_location: 'hero_primary',
+                  cta_label: 'Discuss Your Project',
+                })
+                onDiscussProject()
+              }}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_30px_rgba(0,210,255,0.3)] hover:shadow-[0_0_35px_rgba(0,210,255,0.5)] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
               <span>Discuss Your Project</span>
@@ -64,7 +71,13 @@ export const Hero: React.FC<HeroProps> = ({
 
             <button
               type="button"
-              onClick={onExploreServices}
+              onClick={() => {
+                trackContactCtaClick({
+                  cta_location: 'hero_secondary',
+                  cta_label: 'Explore Our Solutions',
+                })
+                onExploreServices()
+              }}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-base font-semibold text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/30 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
             >
               <MessageSquare className="w-4 h-4 text-cyan-400" />

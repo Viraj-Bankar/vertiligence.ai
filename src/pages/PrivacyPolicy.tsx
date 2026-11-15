@@ -244,6 +244,14 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({
               </div>
 
               <div className="p-4 rounded-xl bg-[#090E1A] border border-white/10 space-y-1.5">
+                <span className="font-mono text-cyan-400 font-semibold text-[11px] uppercase">Measurement (Opt-in)</span>
+                <h4 className="text-white font-bold">Google Analytics 4 (Google LLC)</h4>
+                <p className="text-slate-400 leading-relaxed">
+                  When explicitly accepted, measures aggregate visit metrics and referral channels. Transmits anonymized IP and non-personal event parameters; zero form fields, briefs, or PII are ever collected. Blocked by default.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-[#090E1A] border border-white/10 space-y-1.5">
                 <span className="font-mono text-cyan-400 font-semibold text-[11px] uppercase">Code Repository</span>
                 <h4 className="text-white font-bold">GitHub</h4>
                 <p className="text-slate-400 leading-relaxed">

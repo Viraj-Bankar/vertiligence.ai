@@ -3,6 +3,7 @@ import { BrandLogo } from './BrandLogo'
 import type { ServiceId } from '../types'
 import { STUDIO_DETAILS } from '../data/content'
 import { Mail, ArrowUp, Code2, Sliders, ShieldCheck } from 'lucide-react'
+import { trackEmailContactClick } from '../analytics'
 
 interface FooterProps {
   onSelectService: (service: ServiceId) => void
@@ -75,6 +76,12 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <a
                 href={`mailto:${STUDIO_DETAILS.email}`}
+                onClick={() =>
+                  trackEmailContactClick({
+                    location: 'footer',
+                    email_target: STUDIO_DETAILS.email,
+                  })
+                }
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-cyan-300 hover:text-cyan-200 border border-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
                 <Mail className="w-3.5 h-3.5" />
