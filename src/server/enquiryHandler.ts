@@ -67,6 +67,89 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;')
 }
 
+const DEFAULT_SENDER = 'onboarding@resend.dev'
+const DEFAULT_RECIPIENT = 'mail.virajbankar@gmail.com'
+
+/**
+ * Extracts only the domain from an email address or formatted sender string for safe diagnostic logging.
+ * Never logs credentials, names, or visitor personal information.
+ */
+export function extractDomain(emailStr: string): string {
+  if (!emailStr || typeof emailStr !== 'string') return 'unknown'
+  const match = emailStr.match(/@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/)
+  return match ? match[1].toLowerCase() : 'unknown'
+}
+
+/**
+ * Sanitizes and validates the sender email address for Resend API.
+ * Ensures the value is passed as:
+ * - A clean plain email address (e.g. "onboarding@resend.dev" or "noreply@vertiligence.ai")
+ * - OR a correctly formatted RFC string: "Name <email@example.com>"
+ * Strips wrapping quotes, duplicated angle brackets, whitespace, and invalid env placeholders.
+ * Defaults safely to "onboarding@resend.dev" if absent, invalid, or using sandbox resend.dev.
+ */
+export function resolveSenderEmail(rawFrom?: string | null): string {
+  if (!rawFrom || typeof rawFrom !== 'string') {
+    return DEFAULT_SENDER
+  }
+
+  // Strip whitespace and leading/trailing quotes (single, double, backticks)
+  let cleaned = rawFrom.trim().replace(/^["'`]+|["'`]+$/g, '').trim()
+  const lower = cleaned.toLowerCase()
+
+  if (
+    !cleaned ||
+    lower === 'undefined' ||
+    lower === 'null' ||
+    lower === 'resend_from_email' ||
+    lower === 'false' ||
+    lower === 'true'
+  ) {
+    return DEFAULT_SENDER
+  }
+
+  // Check for "Name <email@example.com>"
+  const nameEmailMatch = cleaned.match(/^([^<>]*?)\s*<+([^<>]+)>+$/)
+  if (nameEmailMatch) {
+    const rawName = nameEmailMatch[1].trim().replace(/^["'`]+|["'`]+$/g, '').trim()
+    const rawEmail = nameEmailMatch[2].trim().toLowerCase()
+
+    if (EMAIL_REGEX.test(rawEmail)) {
+      // Resend sandbox domain resend.dev requires plain "onboarding@resend.dev" without custom display name
+      if (rawEmail === 'onboarding@resend.dev') {
+        return DEFAULT_SENDER
+      }
+      if (rawName.length > 0) {
+        const safeName = rawName.replace(/["'<>]/g, '').trim()
+        return safeName.length > 0 ? `${safeName} <${rawEmail}>` : rawEmail
+      }
+      return rawEmail
+    }
+  }
+
+  // Check for bare email address (strip any accidental brackets)
+  const bareEmail = cleaned.replace(/^[<]+|[>]+$/g, '').trim().toLowerCase()
+  if (EMAIL_REGEX.test(bareEmail)) {
+    return bareEmail
+  }
+
+  return DEFAULT_SENDER
+}
+
+/**
+ * Sanitizes the recipient email, maintaining single source of truth: mail.virajbankar@gmail.com
+ */
+export function resolveRecipientEmail(rawRecipient?: string | null): string {
+  if (!rawRecipient || typeof rawRecipient !== 'string') {
+    return DEFAULT_RECIPIENT
+  }
+  const cleaned = rawRecipient.trim().replace(/^["'`]+|["'`]+$/g, '').trim().toLowerCase()
+  if (EMAIL_REGEX.test(cleaned)) {
+    return cleaned
+  }
+  return DEFAULT_RECIPIENT
+}
+
 function generateEnquiryId(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   let random = ''
@@ -165,8 +248,8 @@ export async function processEnquiry(
   const resendApiKey = env.RESEND_API_KEY?.trim()
   const webhookUrl = (env.ENQUIRY_DELIVERY_WEBHOOK_URL || env.ENQUIRY_WEBHOOK_URL)?.trim()
   const kv = env.ENQUIRY_KV
-  const recipientEmail = env.ENQUIRY_NOTIFICATION_EMAIL?.trim() || 'mail.virajbankar@gmail.com'
-  const fromEmail = env.RESEND_FROM_EMAIL?.trim() || 'Vertiligence AI Inquiries <onboarding@resend.dev>'
+  const recipientEmail = resolveRecipientEmail(env.ENQUIRY_NOTIFICATION_EMAIL)
+  const fromEmail = resolveSenderEmail(env.RESEND_FROM_EMAIL)
   const timestampIso = new Date().toISOString()
   const isDevMode =
     env.NODE_ENV === 'development' ||
@@ -200,8 +283,8 @@ export async function processEnquiry(
   // Channel A: Resend API Email Delivery
   if (resendApiKey) {
     console.log('[RESEND_REQUEST_STARTED]', {
-      recipientDomain: recipientEmail.includes('@') ? recipientEmail.split('@')[1] : 'unknown',
-      senderDomain: fromEmail.includes('@') ? fromEmail.split('@')[1].replace('>', '') : 'unknown',
+      senderDomain: extractDomain(fromEmail),
+      recipientDomain: extractDomain(recipientEmail),
       hasReplyTo: Boolean(email),
     })
 
