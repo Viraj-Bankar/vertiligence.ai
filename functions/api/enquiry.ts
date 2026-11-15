@@ -23,7 +23,7 @@ export async function onRequestPost(context: {
 }): Promise<Response> {
   let payload: EnquiryInput = {}
   try {
-    payload = await context.request.json()
+    payload = (await context.request.json()) as EnquiryInput
   } catch {
     return new Response(JSON.stringify({ success: false, error: 'Malformed JSON payload.' }), {
       status: 400,

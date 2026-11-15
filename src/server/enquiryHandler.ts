@@ -1,18 +1,10 @@
 /**
- * Vertiligence AI — Production Enquiry Processing Core
+ * Vertiligence AI — Shared Enquiry Processing Core
  *
- * Platform-agnostic enquiry processor compatible with:
- * - Vercel Serverless Functions (api/enquiry.ts)
+ * Implements identical processing logic to api/enquiry.ts for:
  * - Cloudflare Pages Functions (functions/api/enquiry.ts)
- * - Vite Development & Preview Server middleware
- *
- * Guarantees:
- * 1. Strict server-side schema validation.
- * 2. Spam mitigation via honeypot and bot-speed timing checks.
- * 3. Verified email delivery via Resend API or secure webhook dispatch.
- * 4. Immutable Reference ID (ENQ-XXXXXX-TIMESTAMP) generated ONLY after confirmed delivery.
- * 5. Honest failure response (HTTP 503) if delivery channel is unconfigured in production.
- * 6. Zero Personally Identifiable Information leaked to analytics.
+ * - Vite Development & Preview Server middleware (vite.config.ts)
+ * - Automated backend test suites
  */
 
 export interface EnquiryInput {
@@ -54,6 +46,7 @@ export interface ProcessEnquiryResult {
     code?: string
     timestamp?: string
     service?: string
+    diagnostic?: string
   }
 }
 
@@ -74,9 +67,6 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#039;')
 }
 
-/**
- * Generates an immutable, collision-resistant reference ID for confirmed enquiries.
- */
 function generateEnquiryId(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
   let random = ''
@@ -153,6 +143,12 @@ export async function processEnquiry(
     validationErrors.consent = 'Consent is required to submit an inquiry.'
   }
 
+  console.log('[VALIDATION_COMPLETED]', {
+    passed: Object.keys(validationErrors).length === 0,
+    errorCount: Object.keys(validationErrors).length,
+    fieldsWithErrors: Object.keys(validationErrors),
+  })
+
   if (Object.keys(validationErrors).length > 0) {
     return {
       statusCode: 422,
@@ -169,14 +165,20 @@ export async function processEnquiry(
   const resendApiKey = env.RESEND_API_KEY?.trim()
   const webhookUrl = (env.ENQUIRY_DELIVERY_WEBHOOK_URL || env.ENQUIRY_WEBHOOK_URL)?.trim()
   const kv = env.ENQUIRY_KV
-  const isDevMode =
-    env.NODE_ENV === 'development' ||
-    env.ALLOW_DEV_MOCK === 'true' ||
-    Boolean(!env.NODE_ENV && !resendApiKey && !webhookUrl)
-
   const recipientEmail = env.ENQUIRY_NOTIFICATION_EMAIL?.trim() || 'mail.virajbankar@gmail.com'
   const fromEmail = env.RESEND_FROM_EMAIL?.trim() || 'Vertiligence AI Inquiries <onboarding@resend.dev>'
   const timestampIso = new Date().toISOString()
+  const isDevMode =
+    env.NODE_ENV === 'development' ||
+    env.ALLOW_DEV_MOCK === 'true'
+
+  console.log('[RESEND_CONFIGURATION_CHECKED]', {
+    hasResendApiKey: Boolean(resendApiKey && resendApiKey.length > 5),
+    hasNotificationEmail: Boolean(recipientEmail),
+    hasFromEmail: Boolean(fromEmail),
+    hasWebhookUrl: Boolean(webhookUrl),
+    isDevMode: Boolean(isDevMode),
+  })
 
   // If in production and NO delivery channels are configured, honestly reject
   if (!resendApiKey && !webhookUrl && !kv && !isDevMode) {
@@ -190,14 +192,19 @@ export async function processEnquiry(
     }
   }
 
-  // Pre-allocate reference ID for inclusion in email headers/subject
+  // Candidate Reference ID for inclusion in email headers/subject
   const candidateEnquiryId = generateEnquiryId()
-
   let deliverySucceeded = false
   let deliveryError: string | null = null
 
   // Channel A: Resend API Email Delivery
   if (resendApiKey) {
+    console.log('[RESEND_REQUEST_STARTED]', {
+      recipientDomain: recipientEmail.includes('@') ? recipientEmail.split('@')[1] : 'unknown',
+      senderDomain: fromEmail.includes('@') ? fromEmail.split('@')[1].replace('>', '') : 'unknown',
+      hasReplyTo: Boolean(email),
+    })
+
     try {
       const subject = `[Project Enquiry] ${serviceName} - ${company || name} (${candidateEnquiryId})`
       const textContent = [
@@ -278,6 +285,11 @@ export async function processEnquiry(
           text: textContent,
           html: htmlContent,
         }),
+      })
+
+      console.log('[RESEND_RESPONSE_RECEIVED]', {
+        status: resendRes.status,
+        ok: resendRes.ok,
       })
 
       if (resendRes.ok) {
