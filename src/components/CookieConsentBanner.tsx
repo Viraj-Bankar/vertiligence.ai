@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   getStoredConsent,
-  acceptAllCookies,
-  rejectOptionalCookies,
+  acceptOptionalCookies,
   onConsentChange,
 } from '../utils/cookieConsent'
 import { ShieldCheck, Cookie } from 'lucide-react'
@@ -29,13 +28,8 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
 
   if (!isVisible) return null
 
-  const handleAcceptAll = () => {
-    acceptAllCookies()
-    setIsVisible(false)
-  }
-
-  const handleRejectOptional = () => {
-    rejectOptionalCookies()
+  const handleAcceptOptional = () => {
+    acceptOptionalCookies()
     setIsVisible(false)
   }
 
@@ -74,7 +68,7 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
             </div>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
-              Vertiligence AI uses essential browser storage to remember your privacy choices and secure our systems. We do not sell visitor data or run advertising trackers. You can accept all cookies, reject optional categories, or customize your preferences.
+              Vertiligence AI uses essential browser storage to remember your privacy choices and secure our systems. We do not sell visitor data or run advertising trackers. You can accept optional cookies or customize your preferences to choose which categories to enable.
             </p>
 
             <div className="text-[11px] text-slate-400 flex flex-wrap items-center gap-2 pt-1">
@@ -97,30 +91,22 @@ export const CookieConsentBanner: React.FC<CookieConsentBannerProps> = ({
             </div>
           </div>
 
-          {/* Right Action Buttons: Reject Optional is equal in prominence */}
+          {/* Right Action Buttons: Customize and Accept Optional Cookies */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
             <button
               type="button"
-              onClick={handleRejectOptional}
-              className="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 text-center"
-            >
-              Reject Optional
-            </button>
-
-            <button
-              type="button"
               onClick={onOpenPreferences}
-              className="px-4 py-2.5 rounded-xl text-xs font-semibold text-cyan-300 hover:text-white bg-cyan-950/40 hover:bg-cyan-900/50 border border-cyan-500/30 hover:border-cyan-400/50 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 text-center"
+              className="px-5 py-2.5 rounded-xl text-xs font-semibold text-cyan-300 hover:text-white bg-cyan-950/40 hover:bg-cyan-900/50 border border-cyan-500/30 hover:border-cyan-400/50 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 text-center"
             >
               Customize
             </button>
 
             <button
               type="button"
-              onClick={handleAcceptAll}
+              onClick={handleAcceptOptional}
               className="px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-md shadow-cyan-500/20 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 text-center"
             >
-              Accept All
+              Accept Optional Cookies
             </button>
           </div>
         </div>

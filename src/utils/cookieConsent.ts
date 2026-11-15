@@ -154,6 +154,8 @@ export function acceptAllCookies(): CookieConsentPreferences {
   })
 }
 
+export const acceptOptionalCookies = acceptAllCookies
+
 export function rejectOptionalCookies(): CookieConsentPreferences {
   return saveConsent({
     essential: true,
