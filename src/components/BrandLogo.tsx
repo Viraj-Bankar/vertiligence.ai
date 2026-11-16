@@ -33,7 +33,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     return (
       <div className={`inline-flex items-center ${className}`}>
         <img
-          src="/logo-full.png"
+          src="/logo-full.webp"
           alt="Vertiligence AI — Intelligence. Automation. Impact."
           className="h-auto max-h-16 w-auto object-contain drop-shadow-[0_0_20px_rgba(0,210,255,0.25)]"
         />
@@ -49,7 +49,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       >
         {!imageError ? (
           <img
-            src="/logo-emblem.png"
+            src="/logo-emblem.webp"
             alt="Vertiligence AI Emblem"
             onError={() => setImageError(true)}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
@@ -88,7 +88,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
             </span>
           </div>
           <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-400 mt-1">
-            Studio · India
+            Technology Engineering · India
           </span>
         </div>
       )}

@@ -141,7 +141,7 @@ export const HeroVisual: React.FC = () => {
           <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-blue-950/40 via-cyan-950/40 to-slate-900/60 border border-cyan-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-black/60 border border-cyan-400/50 flex items-center justify-center p-1.5 shrink-0 shadow-[0_0_15px_rgba(0,210,255,0.25)]">
-                <img src="/logo-emblem.png" alt="" className="w-full h-full object-cover rounded-md" aria-hidden="true" />
+                <img src="/logo-emblem.webp" alt="" className="w-full h-full object-cover rounded-md" aria-hidden="true" />
               </div>
               <div>
                 <div className="text-xs font-mono uppercase tracking-wider text-cyan-300 font-semibold flex items-center gap-1.5">

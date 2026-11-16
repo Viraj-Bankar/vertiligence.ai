@@ -261,7 +261,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
           </div>
           <button
             type="button"
-            onClick={() => onSelectService('custom-software')}
+            onClick={() => onSelectService('consulting')}
             className="shrink-0 px-6 py-3 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-md shadow-cyan-500/20 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 whitespace-nowrap"
           >
             Schedule Scoping Consultation →

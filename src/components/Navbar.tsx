@@ -43,12 +43,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
   }, [mobileMenuOpen])
 
   const navLinks = [
+    { label: 'Challenges', href: '#challenges' },
     { label: 'Solutions', href: '#services' },
     { label: 'Ecosystem', href: '#ecosystem' },
-    { label: 'Challenges', href: '#challenges' },
     { label: 'Audit', href: '#audit' },
     { label: 'Prototypes', href: '#portfolio' },
     { label: 'Industries', href: '#industries' },
+    { label: 'How We Deliver', href: '#process' },
     { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ]
@@ -93,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Main Navigation">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5" aria-label="Main Navigation">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -102,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
                   e.preventDefault()
                   handleLinkClick(link.href)
                 }}
-                className="px-3 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200 rounded-md hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                className="px-2.5 xl:px-3 py-1.5 text-xs xl:text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200 rounded-md hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 whitespace-nowrap"
               >
                 {link.label}
               </a>
@@ -110,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
           </nav>
 
           {/* Desktop CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <button
               type="button"
               onClick={() => {
@@ -120,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
                 })
                 onDiscussClick()
               }}
-              className="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(0,210,255,0.25)] hover:shadow-[0_0_25px_rgba(0,210,255,0.45)] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400 cursor-pointer"
+              className="group relative inline-flex items-center gap-2 px-4 xl:px-5 py-2.5 rounded-lg text-xs xl:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_20px_rgba(0,210,255,0.25)] hover:shadow-[0_0_25px_rgba(0,210,255,0.45)] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400 cursor-pointer whitespace-nowrap"
             >
               <span>Discuss Your Operations</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -128,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
           </div>
 
           {/* Mobile menu hamburger toggle */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -149,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onDiscussClick }) => {
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation"
-            className="md:hidden fixed inset-x-0 top-[61px] bottom-0 bg-[#07090E]/95 backdrop-blur-xl border-t border-white/10 p-6 flex flex-col justify-between overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200 z-50"
+            className="lg:hidden fixed inset-x-0 top-[65px] bottom-0 bg-[#07090E]/95 backdrop-blur-xl border-t border-white/10 p-6 flex flex-col justify-between overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200 z-50"
           >
             <div className="flex flex-col space-y-2">
               <div className="px-3 py-2 text-xs font-semibold tracking-wider uppercase text-cyan-400/80">

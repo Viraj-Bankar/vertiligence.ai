@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import type { ServiceId } from './types'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
@@ -14,12 +14,35 @@ import { About } from './components/About'
 import { FAQ } from './components/FAQ'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
-import { PrivacyModal } from './components/PrivacyModal'
 import { CookieConsentBanner } from './components/CookieConsentBanner'
-import { CookiePreferencesModal } from './components/CookiePreferencesModal'
-import { PrivacyPolicy } from './pages/PrivacyPolicy'
-import { CookiePolicy } from './pages/CookiePolicy'
 import { initAnalytics, trackPageView } from './analytics'
+
+// Lazy-loaded components and dedicated policy routes to optimize initial bundle size
+const PrivacyPolicy = lazy(() =>
+  import('./pages/PrivacyPolicy').then((m) => ({ default: m.PrivacyPolicy }))
+)
+const CookiePolicy = lazy(() =>
+  import('./pages/CookiePolicy').then((m) => ({ default: m.CookiePolicy }))
+)
+const PrivacyModal = lazy(() =>
+  import('./components/PrivacyModal').then((m) => ({ default: m.PrivacyModal }))
+)
+const CookiePreferencesModal = lazy(() =>
+  import('./components/CookiePreferencesModal').then((m) => ({
+    default: m.CookiePreferencesModal,
+  }))
+)
+
+function PageRouteLoading() {
+  return (
+    <div className="min-h-screen bg-[#07090E] flex flex-col items-center justify-center text-slate-400">
+      <div className="w-8 h-8 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin mb-3" />
+      <span className="font-mono text-xs uppercase tracking-wider text-cyan-400/80">
+        Loading...
+      </span>
+    </div>
+  )
+}
 
 function resolveCurrentRoute(): string {
   if (typeof window === 'undefined') return '/'
@@ -134,7 +157,7 @@ export function App() {
   // 1. Dedicated Privacy Policy Route
   if (currentRoute === '/privacy-policy') {
     return (
-      <>
+      <Suspense fallback={<PageRouteLoading />}>
         <PrivacyPolicy
           onBackToHome={() => navigateTo('/')}
           onOpenCookieSettings={() => setCookiePreferencesOpen(true)}
@@ -146,18 +169,22 @@ export function App() {
           onNavigateToPolicy={(path) => navigateTo(path)}
         />
 
-        <CookiePreferencesModal
-          isOpen={cookiePreferencesOpen}
-          onClose={() => setCookiePreferencesOpen(false)}
-        />
-      </>
+        {cookiePreferencesOpen && (
+          <Suspense fallback={null}>
+            <CookiePreferencesModal
+              isOpen={cookiePreferencesOpen}
+              onClose={() => setCookiePreferencesOpen(false)}
+            />
+          </Suspense>
+        )}
+      </Suspense>
     )
   }
 
   // 2. Dedicated Cookie Policy Route
   if (currentRoute === '/cookie-policy') {
     return (
-      <>
+      <Suspense fallback={<PageRouteLoading />}>
         <CookiePolicy
           onBackToHome={() => navigateTo('/')}
           onOpenCookieSettings={() => setCookiePreferencesOpen(true)}
@@ -169,11 +196,15 @@ export function App() {
           onNavigateToPolicy={(path) => navigateTo(path)}
         />
 
-        <CookiePreferencesModal
-          isOpen={cookiePreferencesOpen}
-          onClose={() => setCookiePreferencesOpen(false)}
-        />
-      </>
+        {cookiePreferencesOpen && (
+          <Suspense fallback={null}>
+            <CookiePreferencesModal
+              isOpen={cookiePreferencesOpen}
+              onClose={() => setCookiePreferencesOpen(false)}
+            />
+          </Suspense>
+        )}
+      </Suspense>
     )
   }
 
@@ -236,10 +267,14 @@ export function App() {
       />
 
       {/* Quick Summary Privacy Modal (retained for inline quick view) */}
-      <PrivacyModal
-        isOpen={privacyModalOpen}
-        onClose={() => setPrivacyModalOpen(false)}
-      />
+      {privacyModalOpen && (
+        <Suspense fallback={null}>
+          <PrivacyModal
+            isOpen={privacyModalOpen}
+            onClose={() => setPrivacyModalOpen(false)}
+          />
+        </Suspense>
+      )}
 
       {/* Cookie Consent Banner */}
       <CookieConsentBanner
@@ -248,10 +283,14 @@ export function App() {
       />
 
       {/* Interactive Cookie Preferences Modal */}
-      <CookiePreferencesModal
-        isOpen={cookiePreferencesOpen}
-        onClose={() => setCookiePreferencesOpen(false)}
-      />
+      {cookiePreferencesOpen && (
+        <Suspense fallback={null}>
+          <CookiePreferencesModal
+            isOpen={cookiePreferencesOpen}
+            onClose={() => setCookiePreferencesOpen(false)}
+          />
+        </Suspense>
+      )}
     </div>
   )
 }

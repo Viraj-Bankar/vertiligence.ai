@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import { PORTFOLIO_DEMOS } from '../data/content'
 import type { PortfolioItem } from '../types'
-import { PortfolioModal } from './PortfolioModal'
 import { trackPortfolioView } from '../analytics'
+
+const PortfolioModal = lazy(() =>
+  import('./PortfolioModal').then((m) => ({ default: m.PortfolioModal }))
+)
 import {
   LayoutDashboard,
   Workflow,
@@ -153,10 +156,14 @@ export const Portfolio: React.FC = () => {
       </div>
 
       {/* Portfolio Detail Modal */}
-      <PortfolioModal
-        item={selectedItem}
-        onClose={() => setSelectedItem(null)}
-      />
+      {selectedItem && (
+        <Suspense fallback={null}>
+          <PortfolioModal
+            item={selectedItem}
+            onClose={() => setSelectedItem(null)}
+          />
+        </Suspense>
+      )}
     </section>
   )
 }

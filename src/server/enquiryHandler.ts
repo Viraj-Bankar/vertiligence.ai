@@ -71,6 +71,36 @@ const DEFAULT_SENDER = 'onboarding@resend.dev'
 const DEFAULT_RECIPIENT = 'mail.virajbankar@gmail.com'
 
 /**
+ * Allowed origin domains for CORS protection.
+ * Restricts external cross-origin execution while permitting the official website
+ * and local developer environments.
+ */
+const ALLOWED_ORIGINS_EXACT = new Set([
+  'https://vertiligence.ai',
+  'https://www.vertiligence.ai',
+  'https://vertiligenceai.vercel.app',
+])
+
+export function isAllowedOrigin(origin?: string | null): boolean {
+  if (!origin || typeof origin !== 'string') return false
+  const trimmed = origin.trim().toLowerCase()
+  if (ALLOWED_ORIGINS_EXACT.has(trimmed)) return true
+  // Allow project preview deployments on Vercel
+  if (/^https:\/\/vertiligenceai-[a-z0-9-]+-[a-z0-9-]+\.vercel\.app$/.test(trimmed)) return true
+  if (/^https:\/\/vertiligenceai-[a-z0-9-]+\.vercel\.app$/.test(trimmed)) return true
+  // Allow local development (any port on localhost or 127.0.0.1)
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(trimmed)) return true
+  return false
+}
+
+export function resolveCorsOrigin(requestOrigin?: string | null): string {
+  if (requestOrigin && isAllowedOrigin(requestOrigin)) {
+    return requestOrigin.trim()
+  }
+  return 'https://vertiligence.ai'
+}
+
+/**
  * Extracts only the domain from an email address or formatted sender string for safe diagnostic logging.
  * Never logs credentials, names, or visitor personal information.
  */

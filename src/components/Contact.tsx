@@ -649,22 +649,22 @@ ${formData.name}`
                       className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-white/10 focus:border-cyan-400 text-white text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-cyan-400 cursor-pointer"
                     >
                       <option value="" className="bg-slate-900 text-slate-400">
-                        Select approximate tier (optional)
+                        Select approximate budget range (optional)
                       </option>
-                      <option value="Starter SaaS (₹1,500–₹2,500 / $20–$35 mo)" className="bg-slate-900 text-white">
-                        Starter SaaS (₹1,500–₹2,500 / $20–$35 mo) — Core CRM, tasks & onboarding
+                      <option value="₹50,000 – ₹1,50,000 / $600 – $1,800" className="bg-slate-900 text-white">
+                        ₹50,000 – ₹1,50,000 ($600 – $1,800) — Targeted workflow automation or specific module
                       </option>
-                      <option value="Growth SaaS (₹5,000–₹9,000 / $75–$150 mo)" className="bg-slate-900 text-white">
-                        Growth SaaS (₹5,000–₹9,000 / $75–$150 mo) — Automation & integration allowance
+                      <option value="₹1,50,000 – ₹3,50,000 / $1,800 – $4,200" className="bg-slate-900 text-white">
+                        ₹1,50,000 – ₹3,50,000 ($1,800 – $4,200) — Custom web portal or multi-system integration
                       </option>
-                      <option value="Scoped Implementation (₹25,000–₹1,50,000+ / $500–$2,500+)" className="bg-slate-900 text-white">
-                        Scoped Implementation (₹25,000–₹1,50,000+ / $500–$2,500+) — Fixed milestone project
+                      <option value="₹3,50,000 – ₹7,50,000+ / $4,200 – $9,000+" className="bg-slate-900 text-white">
+                        ₹3,50,000 – ₹7,50,000+ ($4,200 – $9,000+) — End-to-end business software ecosystem
                       </option>
-                      <option value="Managed Operations & SLA (₹5,000–₹25,000+ / $150–$500+ mo)" className="bg-slate-900 text-white">
-                        Managed Operations & SLA (₹5,000–₹25,000+ / $150–$500+ mo) — Continuous monitoring
+                      <option value="Enterprise / Custom Multi-Phase Scope" className="bg-slate-900 text-white">
+                        Enterprise Scope (To be scoped across milestones)
                       </option>
-                      <option value="Custom Enterprise / Discovery Call" className="bg-slate-900 text-white">
-                        Custom Enterprise Scope (To be determined after discovery call)
+                      <option value="Not sure yet (Explore during discovery)" className="bg-slate-900 text-white">
+                        Not sure yet (Explore during discovery call)
                       </option>
                     </select>
                   </div>

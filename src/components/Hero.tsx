@@ -28,7 +28,7 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-12">
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-6 backdrop-blur-md shadow-lg shadow-cyan-500/10">
-            <img src="/logo-emblem.png" alt="" className="w-4 h-4 rounded-full object-cover shrink-0 ring-1 ring-cyan-400" aria-hidden="true" />
+            <img src="/logo-emblem.webp" alt="" className="w-4 h-4 rounded-full object-cover shrink-0 ring-1 ring-cyan-400" aria-hidden="true" />
             <span>TECHNOLOGY ENGINEERING · DIGITAL TRANSFORMATION</span>
           </div>
 

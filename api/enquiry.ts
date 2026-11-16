@@ -75,6 +75,36 @@ const DEFAULT_SENDER = 'onboarding@resend.dev'
 const DEFAULT_RECIPIENT = 'mail.virajbankar@gmail.com'
 
 /**
+ * Allowed origin domains for CORS protection.
+ * Restricts external cross-origin execution while permitting the official website
+ * and local developer environments.
+ */
+const ALLOWED_ORIGINS_EXACT = new Set([
+  'https://vertiligence.ai',
+  'https://www.vertiligence.ai',
+  'https://vertiligenceai.vercel.app',
+])
+
+export function isAllowedOrigin(origin?: string | null): boolean {
+  if (!origin || typeof origin !== 'string') return false
+  const trimmed = origin.trim().toLowerCase()
+  if (ALLOWED_ORIGINS_EXACT.has(trimmed)) return true
+  // Allow project preview deployments on Vercel
+  if (/^https:\/\/vertiligenceai-[a-z0-9-]+-[a-z0-9-]+\.vercel\.app$/.test(trimmed)) return true
+  if (/^https:\/\/vertiligenceai-[a-z0-9-]+\.vercel\.app$/.test(trimmed)) return true
+  // Allow local development (any port on localhost or 127.0.0.1)
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(trimmed)) return true
+  return false
+}
+
+export function resolveCorsOrigin(requestOrigin?: string | null): string {
+  if (requestOrigin && isAllowedOrigin(requestOrigin)) {
+    return requestOrigin.trim()
+  }
+  return 'https://vertiligence.ai'
+}
+
+/**
  * Extracts only the domain from an email address or formatted sender string for safe diagnostic logging.
  * Never logs credentials, names, or visitor personal information.
  */
@@ -472,14 +502,43 @@ export async function processEnquiry(
 }
 
 /**
+ * RATE LIMITING ASSESSMENT & ARCHITECTURE NOTE:
+ * In a serverless architecture (Vercel Serverless Functions, AWS Lambda, Cloudflare Pages),
+ * in-memory rate limiters (e.g. Map/Set keyed by IP) are ephemeral to the warm instance
+ * and do not protect across concurrent execution containers or auto-scaling isolates.
+ * 
+ * True production rate limiting requires an external distributed shared store
+ * (e.g. Upstash Redis with @upstash/ratelimit, Cloudflare KV, or Vercel Edge Firewall).
+ * 
+ * If a shared Redis or KV store is configured via UPSTASH_REDIS_REST_URL and
+ * UPSTASH_REDIS_REST_TOKEN, external rate limiting can be engaged. When unconfigured,
+ * Vertiligence AI relies on multi-layer abuse mitigation:
+ * 1. Strict CORS origin allowlist (rejects cross-origin automated scrapers)
+ * 2. Invisible honeypot trap ('website' field traps automated bots)
+ * 3. Sub-second speed analysis (rejection if submission elapsed < 600ms)
+ * 4. Strict server-side schema, character length clamping, and email RFC validation
+ */
+
+/**
  * Universal response helper supporting Vercel Node.js runtime and Edge runtimes.
  */
-function sendResponse(res: unknown, statusCode: number, data: unknown): Response | void {
+function sendResponse(
+  res: unknown,
+  statusCode: number,
+  data: unknown,
+  requestOrigin?: string | null
+): Response | void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nodeRes = res as any
+  const allowed = isAllowedOrigin(requestOrigin)
+  const corsOrigin = allowed && requestOrigin ? requestOrigin.trim() : 'https://vertiligence.ai'
+
   if (nodeRes && typeof nodeRes.setHeader === 'function') {
     nodeRes.setHeader('Content-Type', 'application/json')
-    nodeRes.setHeader('Access-Control-Allow-Origin', '*')
+    if (allowed || !requestOrigin) {
+      nodeRes.setHeader('Access-Control-Allow-Origin', corsOrigin)
+    }
+    nodeRes.setHeader('Vary', 'Origin')
     nodeRes.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
     nodeRes.setHeader('Access-Control-Allow-Headers', 'Content-Type')
     nodeRes.setHeader('Cache-Control', 'no-store, max-age=0')
@@ -501,26 +560,27 @@ function sendResponse(res: unknown, statusCode: number, data: unknown): Response
   }
 
   // Fallback for Web API Fetch Response
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Cache-Control': 'no-store, max-age=0',
+  }
+  if (allowed || !requestOrigin) {
+    headers['Access-Control-Allow-Origin'] = corsOrigin
+  }
+
   if (statusCode === 204) {
     return new Response(null, {
       status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
+      headers,
     })
   }
 
   return new Response(JSON.stringify(data), {
     status: statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Cache-Control': 'no-store, max-age=0',
-    },
+    headers,
   })
 }
 
@@ -529,10 +589,22 @@ function sendResponse(res: unknown, statusCode: number, data: unknown): Response
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function handler(req: any, res?: any) {
+  const requestOrigin =
+    req?.headers?.origin ||
+    req?.headers?.get?.('origin') ||
+    null
+
   try {
     // 1. CORS Preflight
     if (req?.method === 'OPTIONS') {
-      return sendResponse(res, 204, null)
+      if (requestOrigin && !isAllowedOrigin(requestOrigin)) {
+        return sendResponse(res, 403, {
+          success: false,
+          error: 'Cross-origin request denied.',
+          code: 'CORS_ORIGIN_DENIED',
+        }, requestOrigin)
+      }
+      return sendResponse(res, 204, null, requestOrigin)
     }
 
     // 2. Structured diagnostic log: invocation
@@ -541,16 +613,26 @@ export default async function handler(req: any, res?: any) {
       url: req?.url,
       hasBody: Boolean(req?.body),
       contentType: req?.headers?.['content-type'],
+      originAllowed: requestOrigin ? isAllowedOrigin(requestOrigin) : true,
       timestamp: new Date().toISOString(),
     })
 
-    // 3. Method validation
+    // 3. Origin check on POST: block untrusted external cross-origin requests
+    if (requestOrigin && !isAllowedOrigin(requestOrigin)) {
+      return sendResponse(res, 403, {
+        success: false,
+        error: 'Cross-origin request denied.',
+        code: 'CORS_ORIGIN_DENIED',
+      }, requestOrigin)
+    }
+
+    // 4. Method validation
     if (req?.method !== 'POST') {
       return sendResponse(res, 405, {
         success: false,
         error: 'Method not allowed',
         code: 'METHOD_NOT_ALLOWED',
-      })
+      }, requestOrigin)
     }
 
     // 4. Safe Body Parsing
@@ -579,7 +661,7 @@ export default async function handler(req: any, res?: any) {
         success: false,
         error: 'Malformed JSON payload.',
         code: 'INVALID_JSON',
-      })
+      }, requestOrigin)
     }
 
     if (!payload || typeof payload !== 'object') {
@@ -601,7 +683,7 @@ export default async function handler(req: any, res?: any) {
     // 6. Process Enquiry
     const result = await processEnquiry(payload, process.env as EnquiryServerEnv)
 
-    return sendResponse(res, result.statusCode, result.body)
+    return sendResponse(res, result.statusCode, result.body, requestOrigin)
   } catch (err: unknown) {
     const errorName = err instanceof Error ? err.name : 'UnknownError'
     const errorMessage = err instanceof Error ? err.message : String(err)
@@ -618,6 +700,6 @@ export default async function handler(req: any, res?: any) {
       error: 'An internal server error occurred while processing the enquiry.',
       code: 'INTERNAL_SERVER_ERROR',
       diagnostic: errorName,
-    })
+    }, requestOrigin)
   }
 }
