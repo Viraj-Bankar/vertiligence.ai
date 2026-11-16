@@ -35,7 +35,7 @@ export const About: React.FC = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Transparent IP & Source Transfer</h4>
+                  <h3 className="text-sm font-bold text-white">Transparent IP & Source Transfer</h3>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Ownership, licensing, and source-code handover terms are clearly defined in each project agreement.
                   </p>
@@ -45,7 +45,7 @@ export const About: React.FC = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Secure by Design & Privacy</h4>
+                  <h3 className="text-sm font-bold text-white">Secure by Design & Privacy</h3>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Tenant isolation, RBAC permissions, and customized data protection boundaries agreed per project.
                   </p>
@@ -55,7 +55,7 @@ export const About: React.FC = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Interoperability First</h4>
+                  <h3 className="text-sm font-bold text-white">Interoperability First</h3>
                   <p className="text-xs text-slate-400 mt-0.5">
                     We integrate with your existing tech stack rather than force disruptive replacement.
                   </p>
@@ -65,7 +65,7 @@ export const About: React.FC = () => {
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Direct Engineering Scoping</h4>
+                  <h3 className="text-sm font-bold text-white">Direct Engineering Scoping</h3>
                   <p className="text-xs text-slate-400 mt-0.5">
                     Communicate directly with system architects with clear milestones and SLAs.
                   </p>

@@ -1,0 +1,11 @@
+# Vertiligence AI — Robots.txt
+# Production Domain: https://vertiligenceai.vercel.app
+
+User-agent: *
+Allow: /
+
+# Disallow API functions and private endpoints
+Disallow: /api/
+
+# XML Sitemap reference
+Sitemap: https://vertiligenceai.vercel.app/sitemap.xml

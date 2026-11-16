@@ -197,10 +197,10 @@ export const FAQ: React.FC<FAQProps> = ({ onDiscussClick }) => {
         {/* Post-FAQ Scoping Callout */}
         <div className="mt-12 p-6 rounded-2xl bg-gradient-to-r from-blue-950/40 via-cyan-950/30 to-[#090E1A] border border-cyan-500/25 flex flex-col sm:flex-row items-center justify-between gap-5 text-center sm:text-left">
           <div className="space-y-1">
-            <h4 className="text-base font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+            <h3 className="text-base font-bold text-white flex items-center justify-center sm:justify-start gap-2">
               <Sparkles className="w-4 h-4 text-cyan-400" />
               <span>Have a specific architectural or technical constraint?</span>
-            </h4>
+            </h3>
             <p className="text-xs text-slate-400 max-w-xl">
               We discuss real workflow bottlenecks and provide honest feasibility recommendations before any commercial commitment.
             </p>

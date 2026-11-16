@@ -83,9 +83,9 @@ export const ProcessAudit: React.FC<ProcessAuditProps> = ({ onDiscussClick }) =>
                     {pt.step}
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-white mb-1">
+                    <h3 className="text-sm font-bold text-white mb-1">
                       {pt.title}
-                    </h4>
+                    </h3>
                     <p className="text-xs text-slate-300 leading-relaxed">
                       {pt.description}
                     </p>

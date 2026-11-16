@@ -16,6 +16,7 @@ import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { CookieConsentBanner } from './components/CookieConsentBanner'
 import { initAnalytics, trackPageView } from './analytics'
+import { updateRouteSeo } from './utils/seo'
 
 // Lazy-loaded components and dedicated policy routes to optimize initial bundle size
 const PrivacyPolicy = lazy(() =>
@@ -78,8 +79,10 @@ export function App() {
     return () => cleanup()
   }, [])
 
-  // Track SPA pageview transitions
+  // Track SPA pageview transitions and update document SEO metadata
   useEffect(() => {
+    updateRouteSeo(currentRoute)
+
     const pageName =
       currentRoute === '/'
         ? 'Home'
